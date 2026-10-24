@@ -1,0 +1,237 @@
+/* Responsive Design & Media Queries */
+
+@media (max-width: 1280px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .grid-col-right {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .summary-cards-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --sidebar-width: 230px;
+  }
+  .dashboard-top-row {
+    grid-template-columns: 1fr;
+  }
+  .summary-cards-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ai-chat-layout {
+    grid-template-columns: 1fr;
+  }
+  .chat-sidebar {
+    display: none;
+  }
+  .dabbit-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .dabbit-cell:nth-child(4n) {
+    border-right: 1px solid var(--border-color);
+  }
+  .dabbit-cell:nth-child(2n) {
+    border-right: none;
+  }
+  .dabbit-cell:nth-last-child(-n+4) {
+    border-bottom: 1px solid var(--border-color);
+  }
+  .dabbit-cell:nth-last-child(-n+2) {
+    border-bottom: none;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Mobile Sidebar converted to Drawer */
+  .sidebar {
+    transform: translateX(-100%);
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .sidebar.mobile-open {
+    transform: translateX(0);
+  }
+
+  .main-wrapper {
+    margin-left: 0;
+    padding-bottom: 72px; /* space for mobile bottom bar */
+  }
+
+  .mobile-menu-trigger {
+    display: flex;
+  }
+
+  .mobile-bottom-nav {
+    display: flex;
+  }
+
+  .topbar {
+    padding: 0 16px;
+  }
+
+  .search-bar span {
+    display: none;
+  }
+
+  .search-kbd {
+    display: none;
+  }
+
+  .search-bar {
+    padding: 8px 12px;
+    width: auto;
+  }
+
+  .live-datetime {
+    display: none;
+  }
+
+  .content-container {
+    padding: 16px 14px 60px;
+  }
+
+  .summary-cards-row {
+    grid-template-columns: 1fr;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-col-right {
+    grid-column: span 1;
+    grid-template-columns: 1fr;
+  }
+
+  .floating-assistant-btn {
+    bottom: 76px;
+    right: 16px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .floating-panel {
+    bottom: 136px;
+    right: 16px;
+    left: 16px;
+    width: auto;
+    height: 480px;
+  }
+
+  .pinball-board-wrapper {
+    padding: 12px;
+  }
+
+  .pinball-controls-card {
+    padding: 12px 14px;
+  }
+
+  .floating-capsule-dock {
+    left: 50%;
+    bottom: 76px;
+    width: calc(100% - 32px);
+    max-width: 320px;
+  }
+
+  .floating-action-pill {
+    width: 100%;
+    min-width: 0;
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+
+  .controls-left, .controls-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 480px) {
+  .metric-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dabbit-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dabbit-cell {
+    border-right: none !important;
+    border-bottom: 1px solid var(--border-color) !important;
+  }
+
+  .dabbit-cell:last-child {
+    border-bottom: none !important;
+  }
+
+  .page-title {
+    font-size: 20px;
+  }
+
+  .pinball-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pinball-stats-bar {
+    width: 100%;
+    justify-content: space-between;
+    gap: 6px;
+  }
+
+  .pinball-stat-box {
+    flex: 1;
+    padding: 6px 8px;
+    min-width: 0;
+  }
+
+  .pinball-stat-box .stat-val {
+    font-size: 15px;
+  }
+
+  .pinball-board-wrapper {
+    padding: 8px;
+    border-radius: var(--radius-lg);
+  }
+
+  .choice-btn {
+    font-size: 12px;
+    padding: 7px 12px;
+    flex: 1 1 calc(50% - 10px);
+    text-align: center;
+  }
+
+  .welcome-greeting {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 360px) {
+  .pinball-board-wrapper {
+    padding: 4px;
+  }
+
+  .choice-btn {
+    flex: 1 1 100%;
+  }
+
+  .phase-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}
+

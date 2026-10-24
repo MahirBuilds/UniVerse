@@ -1,0 +1,92 @@
+{
+  "leaderboard": [
+    {
+      "rank": 1,
+      "name": "Aarav Shah",
+      "branch": "CSE Sem 5",
+      "points": 1450,
+      "games_played": 42,
+      "best_game": "Pinball Rebounds",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Aarav",
+      "is_current_user": false,
+      "badge": "Grandmaster"
+    },
+    {
+      "rank": 2,
+      "name": "Riya Patel",
+      "branch": "IT Sem 3",
+      "points": 1320,
+      "games_played": 38,
+      "best_game": "Math Sprint",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Riya",
+      "is_current_user": false,
+      "badge": "Master"
+    },
+    {
+      "rank": 3,
+      "name": "Sneha Roy",
+      "branch": "AI & DS Sem 3",
+      "points": 1290,
+      "games_played": 35,
+      "best_game": "Memory Snap",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Sneha",
+      "is_current_user": false,
+      "badge": "Master"
+    },
+    {
+      "rank": 4,
+      "name": "Rohan Deshmukh",
+      "branch": "CSE Sem 5",
+      "points": 1260,
+      "games_played": 31,
+      "best_game": "Logic Duel",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Rohan",
+      "is_current_user": false,
+      "badge": "Diamond"
+    },
+    {
+      "rank": 5,
+      "name": "Mahir Limbani",
+      "branch": "CSE Sem 3",
+      "points": 1240,
+      "games_played": 28,
+      "best_game": "Pinball Rebounds",
+      "avatar": "/static/images/avatar.svg",
+      "is_current_user": true,
+      "badge": "Diamond"
+    },
+    {
+      "rank": 6,
+      "name": "Parth Ashtamkar",
+      "branch": "CSE Sem 3",
+      "points": 1180,
+      "games_played": 27,
+      "best_game": "Color Grid",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Parth",
+      "is_current_user": false,
+      "badge": "Platinum"
+    },
+    {
+      "rank": 7,
+      "name": "Ananya Sharma",
+      "branch": "ECE Sem 3",
+      "points": 1120,
+      "games_played": 25,
+      "best_game": "Pattern Recall",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Ananya",
+      "is_current_user": false,
+      "badge": "Platinum"
+    },
+    {
+      "rank": 8,
+      "name": "Devansh Joshi",
+      "branch": "Mechanical Sem 5",
+      "points": 1050,
+      "games_played": 22,
+      "best_game": "Math Sprint",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Devansh",
+      "is_current_user": false,
+      "badge": "Gold"
+    }
+  ]
+}

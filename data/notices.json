@@ -1,0 +1,88 @@
+{
+  "notices": [
+    {
+      "id": "not-1",
+      "title": "Internal Assessment 2 Schedule Released",
+      "category": "Examinations",
+      "tag": "Important",
+      "tag_class": "badge-important",
+      "time_ago": "Today, 9:15 AM",
+      "date": "2026-10-01",
+      "is_read": false,
+      "is_bookmarked": true,
+      "author": "Controller of Examinations",
+      "icon": "file-text",
+      "content": "The examination cell has finalized the dates for Continuous Assessment 2 (CA-2) for Semester 3 B.Tech students. Assessments commence on October 18, 2026. Hall tickets and seating allotments will be available in the Examinations portal starting October 14. Students must bring their official university ID cards."
+    },
+    {
+      "id": "not-2",
+      "title": "Cultural Fest - PRAYAG: Registrations Open",
+      "category": "Cultural Events",
+      "tag": "Events",
+      "tag_class": "badge-event",
+      "time_ago": "Yesterday, 4:20 PM",
+      "date": "2026-09-30",
+      "is_read": false,
+      "is_bookmarked": false,
+      "author": "Student Affairs Council",
+      "icon": "sparkles",
+      "content": "UniVerse is proud to host 'PRAYAG 2026', our annual inter-collegiate cultural fest taking place from November 5 to 7. Flagship events include Battle of the Bands, Street Dance, Dramatics, and Fine Arts exhibitions. Early bird registrations for team events close on October 25."
+    },
+    {
+      "id": "not-3",
+      "title": "Hindi Divas Celebration: Join the Creative Committee",
+      "category": "Cultural Events",
+      "tag": "Club",
+      "tag_class": "badge-club",
+      "time_ago": "2 days ago",
+      "date": "2026-09-29",
+      "is_read": true,
+      "is_bookmarked": false,
+      "author": "Literary & Debate Club",
+      "icon": "book-open",
+      "content": "Auditions and committee recruitments for stage anchoring, scriptwriting, and promotional design for the upcoming Hindi Divas literary meet are scheduled for tomorrow at 4:30 PM in the Auditorium Foyer."
+    },
+    {
+      "id": "not-4",
+      "title": "Holiday Notice: 3rd - 7th Oct (Navratri Break)",
+      "category": "Holidays",
+      "tag": "Holiday",
+      "tag_class": "badge-holiday",
+      "time_ago": "2 days ago",
+      "date": "2026-09-29",
+      "is_read": true,
+      "is_bookmarked": true,
+      "author": "Registrar Office",
+      "icon": "calendar",
+      "content": "In accordance with the academic calendar, the university administrative offices and academic departments will remain closed from October 3 to October 7 on the auspicious occasion of Navratri and Dussehra. Academic sessions resume on Wednesday, October 8."
+    },
+    {
+      "id": "not-5",
+      "title": "Annual Hackathon 'CodeVerse 2026' Announced",
+      "category": "Hackathons",
+      "tag": "Competition",
+      "tag_class": "badge-event",
+      "time_ago": "3 days ago",
+      "date": "2026-09-28",
+      "is_read": false,
+      "is_bookmarked": true,
+      "author": "ACM Student Chapter",
+      "icon": "code",
+      "content": "CodeVerse 2026: 36-Hour National Hackathon featuring tracks in AI/ML, Cloud Computing, Web3, and Green Tech. Prize pool of ₹2,50,000 + internship interviews with top tech firms. Team registration open on the UniVerse portal."
+    },
+    {
+      "id": "not-6",
+      "title": "Workshop on Cloud Architecture & Kubernetes",
+      "category": "Workshops",
+      "tag": "Technical",
+      "tag_class": "badge-tech",
+      "time_ago": "4 days ago",
+      "date": "2026-09-27",
+      "is_read": true,
+      "is_bookmarked": false,
+      "author": "Dept. of Computer Science",
+      "icon": "terminal",
+      "content": "Hands-on weekend bootcamp covering Docker microservices, Kubernetes clusters, Helm charts, and CI/CD pipelines. Hands-on cloud credits provided by Google Cloud for all verified attendees."
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block title %}Memory Snap — UniVerse Brain Gym{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+      <a href="{{ url_for('brain_gym') }}" class="card-link" style="font-size: 13px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Brain Gym
+      </a>
+      <span class="badge" style="background-color: rgba(16, 185, 129, 0.12); color: var(--badge-dark-green); border: 1px solid rgba(16, 185, 129, 0.25);">
+        Visual Working Memory
+      </span>
+    </div>
+    <span class="page-eyebrow">Working Memory Recall</span>
+    <h2 class="page-title">Memory Snap</h2>
+  </div>
+
+  <div style="display: flex; gap: 12px; align-items: center;">
+    <div class="card" style="padding: 8px 16px; text-align: center; min-width: 90px;">
+      <div style="font-size: 10.5px; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Sequence Length</div>
+      <div style="font-size: 20px; font-weight: 800; color: var(--secondary-accent); margin-top: 2px;" id="memRound">1</div>
+    </div>
+    <div class="card" style="padding: 8px 16px; text-align: center; min-width: 90px;">
+      <div style="font-size: 10.5px; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Score</div>
+      <div style="font-size: 20px; font-weight: 800; color: var(--primary-accent); margin-top: 2px;" id="memScore">0</div>
+    </div>
+  </div>
+</div>
+
+<div style="max-width: 440px; margin: 0 auto; text-align: center;">
+  <div class="card" style="padding: 30px 24px;">
+    <div id="memStatus" style="font-size: 14.5px; font-weight: 600; color: var(--text-primary); margin-bottom: 24px; min-height: 24px;">
+      Press Start to begin sequence recall!
+    </div>
+
+    <!-- 4 Colored Pads -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 280px; height: 280px; margin: 0 auto 24px;">
+      <div id="pad-0" class="mem-pad" style="background-color: #5B8CFF; border-radius: 18px; cursor: pointer; transition: all 0.15s; opacity: 0.7;" onclick="handlePadClick(0)"></div>
+      <div id="pad-1" class="mem-pad" style="background-color: #63D6C5; border-radius: 18px; cursor: pointer; transition: all 0.15s; opacity: 0.7;" onclick="handlePadClick(1)"></div>
+      <div id="pad-2" class="mem-pad" style="background-color: #F59E0B; border-radius: 18px; cursor: pointer; transition: all 0.15s; opacity: 0.7;" onclick="handlePadClick(2)"></div>
+      <div id="pad-3" class="mem-pad" style="background-color: #EC4899; border-radius: 18px; cursor: pointer; transition: all 0.15s; opacity: 0.7;" onclick="handlePadClick(3)"></div>
+    </div>
+
+    <button class="btn btn-primary" id="memStartBtn" onclick="startMemoryGame()" style="padding: 10px 24px;">
+      Start Memory Snap
+    </button>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let memSequence = [];
+let playerStep = 0;
+let memScoreVal = 0;
+let isPlayingSequence = false;
+
+function startMemoryGame() {
+  memSequence = [];
+  playerStep = 0;
+  memScoreVal = 0;
+  document.getElementById('memScore').textContent = '0';
+  document.getElementById('memStartBtn').style.display = 'none';
+  nextRound();
+}
+
+function nextRound() {
+  playerStep = 0;
+  memSequence.push(Math.floor(Math.random() * 4));
+  document.getElementById('memRound').textContent = memSequence.length;
+  playSequence();
+}
+
+async function playSequence() {
+  isPlayingSequence = true;
+  const status = document.getElementById('memStatus');
+  status.innerHTML = `<span style="color: var(--secondary-accent);">Watch sequence carefully...</span>`;
+
+  await new Promise(r => setTimeout(r, 600));
+
+  for (let padIndex of memSequence) {
+    flashPad(padIndex);
+    await new Promise(r => setTimeout(r, 550));
+  }
+
+  status.innerHTML = `<strong style="color: var(--badge-dark-green);">Your turn! Reproduce the pattern.</strong>`;
+  isPlayingSequence = false;
+}
+
+function flashPad(index) {
+  const pad = document.getElementById(`pad-${index}`);
+  if (pad) {
+    pad.style.opacity = '1';
+    pad.style.transform = 'scale(1.06)';
+    pad.style.boxShadow = '0 0 20px #FFFFFF';
+    setTimeout(() => {
+      pad.style.opacity = '0.7';
+      pad.style.transform = 'scale(1)';
+      pad.style.boxShadow = 'none';
+    }, 350);
+  }
+}
+
+function handlePadClick(index) {
+  if (isPlayingSequence || memSequence.length === 0) return;
+  flashPad(index);
+
+  if (index === memSequence[playerStep]) {
+    playerStep++;
+    if (playerStep === memSequence.length) {
+      memScoreVal += memSequence.length * 20;
+      document.getElementById('memScore').textContent = memScoreVal;
+      document.getElementById('memStatus').innerHTML = `<strong style="color: var(--badge-dark-green);">✓ Sequence completed! Leveling up...</strong>`;
+      setTimeout(nextRound, 800);
+    }
+  } else {
+    document.getElementById('memStatus').innerHTML = `<strong style="color: var(--badge-red);">❌ Wrong tile! Final score: ${memScoreVal}</strong>`;
+    document.getElementById('memStartBtn').style.display = 'inline-block';
+    document.getElementById('memStartBtn').textContent = 'Try Again ⟳';
+    
+    // Submit score
+    fetch('/api/game/submit-score', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ points: memScoreVal, game_id: 'memory_snap' })
+    });
+    memSequence = [];
+  }
+}
+</script>
+{% endblock %}

@@ -1,0 +1,252 @@
+{% extends 'base.html' %}
+
+{% block title %}Pinball Rebounds — UniVerse Brain Gym{% endblock %}
+
+{% block content %}
+<div class="pinball-page-container">
+  <!-- Top Navigation & Header -->
+  <div class="pinball-header-row">
+    <div>
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+        <a href="{{ url_for('brain_gym') }}" class="card-link" style="font-size: 13px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          Back to Brain Gym
+        </a>
+        <span class="badge" style="background-color: rgba(91, 140, 255, 0.15); color: var(--primary-accent); border: 1px solid rgba(91, 140, 255, 0.3);">
+          Memory & Optical Physics
+        </span>
+      </div>
+      <span class="page-eyebrow">Optical Physics Arena</span>
+      <h2 style="font-size: 24px; font-weight: 800; color: var(--text-primary); letter-spacing: -0.3px;">Pinball Rebounds</h2>
+      <p style="font-size: 13px; color: var(--text-secondary); margin-top: 2px;">
+        Memorize mirror positions, trace the angles in your mind, and predict the exit trajectory!
+      </p>
+    </div>
+
+    <!-- Score & Stats Badges -->
+    <div class="pinball-stats-bar">
+      <div class="card pinball-stat-box">
+        <div class="stat-label">Score</div>
+        <div class="stat-val text-accent" id="pinballScore">520</div>
+      </div>
+      <div class="card pinball-stat-box">
+        <div class="stat-label">Best</div>
+        <div class="stat-val" style="color: #10B981;" id="pinballHighScore">520</div>
+      </div>
+      <div class="card pinball-stat-box">
+        <div class="stat-label">Level</div>
+        <div class="stat-val" id="pinballLevel">1</div>
+      </div>
+      <div class="card pinball-stat-box">
+        <div class="stat-label">Streak</div>
+        <div class="stat-val" style="color: #F59E0B;" id="pinballStreak">0 🔥</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="game-container">
+    <!-- Controls Bar -->
+    <div class="card pinball-controls-card">
+      <div class="controls-left">
+        <div class="control-group">
+          <label for="pinballDifficulty">Difficulty:</label>
+          <select id="pinballDifficulty">
+            <option value="Easy">Easy (3-4 Mirrors)</option>
+            <option value="Medium" selected>Medium (4-6 Mirrors)</option>
+            <option value="Hard">Hard (6-8 Mirrors)</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label for="pinballDuration">Memorize Time:</label>
+          <select id="pinballDuration">
+            <option value="5">5 Seconds</option>
+            <option value="6" selected>6 Seconds (Standard)</option>
+            <option value="7">7 Seconds (Extended)</option>
+          </select>
+        </div>
+      </div>
+      <div class="controls-right">
+        <button class="btn btn-secondary btn-sm" id="pinballNewBtn" title="Generate a fresh puzzle">
+          <span>New Round</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+          </svg>
+        </button>
+        <button class="btn btn-secondary btn-sm" id="pinballRulesBtn">
+          <span>How to Play ?</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Phase & Timer Banner -->
+    <div class="card pinball-phase-card" id="pinballPhaseCard">
+      <div class="phase-header-row">
+        <div class="phase-badge-wrap">
+          <span class="phase-badge phase-memorizing" id="pinballPhaseBadge">👁️ MEMORIZE THE MIRRORS</span>
+          <span class="phase-subtext" id="pinballPhaseSubtext">Study the reflector angles before they disappear!</span>
+        </div>
+        <div class="phase-timer-display" id="pinballTimerDisplay">6.0s</div>
+      </div>
+      <div class="pinball-timer-track">
+        <div class="pinball-timer-fill" id="pinballTimerFill"></div>
+      </div>
+      <div class="entrance-indicator-banner" id="pinballEntranceBanner">
+        Laser beam entering from: <strong id="pinballEntryLabel">L1</strong> <span id="pinballEntryArrow">▶</span>
+      </div>
+    </div>
+
+    <!-- Interactive 4x4 Vector Board -->
+    <div class="pinball-board-wrapper" id="pinballBoardWrapper">
+      <svg id="pinballSvg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet" class="pinball-svg">
+        <defs>
+          <!-- Neon Glow Filters -->
+          <filter id="neonGlowBlue" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          <filter id="neonGlowCyan" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="3.5" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          <filter id="laserBeamGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="4" result="blur1" />
+            <feGaussianBlur stdDeviation="1.5" result="blur2" />
+            <feMerge>
+              <feMergeNode in="blur1" />
+              <feMergeNode in="blur2" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        <!-- Board Background & Grid Frame -->
+        <rect x="46" y="46" width="308" height="308" rx="14" class="grid-backdrop" />
+        
+        <!-- 4x4 Cell Rectangles -->
+        <g id="pinballCellsGroup"></g>
+
+        <!-- Interior Grid Lines -->
+        <g id="pinballGridLinesGroup"></g>
+
+        <!-- Mirrors / Reflectors (visible in MEMORIZE and REVEAL phases) -->
+        <g id="pinballMirrorsGroup"></g>
+
+        <!-- Laser Beam Path and Spark Animations -->
+        <g id="pinballLaserGroup"></g>
+
+        <!-- Perimeter Entrance Indicator (outer beam emitter) -->
+        <g id="pinballEmitterGroup"></g>
+
+        <!-- 16 Outer Clickable Boundary Nodes (T0..T3, B0..B3, L0..L3, R0..R3) -->
+        <g id="pinballBoundariesGroup"></g>
+      </svg>
+    </div>
+
+    <!-- Exit Prediction Options (Synchronized with Perimeter Nodes) -->
+    <div class="card pinball-prediction-panel" id="pinballPredictionPanel">
+      <div class="prediction-panel-title">
+        <span>Select Predicted Exit Boundary:</span>
+        <span class="prediction-hint" id="pinballPredictionHint">Click an exit node on the board or an option below</span>
+      </div>
+      <div class="pinball-choices-row" id="pinballChoices"></div>
+
+      <div class="prediction-actions-row">
+        <button class="btn btn-primary" id="pinballSubmitBtn" disabled>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+          <span id="pinballSubmitText">Select Exit to Fire Laser</span>
+        </button>
+        <button class="btn btn-secondary" id="pinballNextBtn" style="display: none;">
+          <span>Next Round</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Result & Feedback Card -->
+    <div class="card pinball-result-card" id="pinballResultCard" style="display: none;">
+      <div class="result-status-header" id="pinballResultHeader"></div>
+      <p class="result-detail" id="pinballResultDetail"></p>
+    </div>
+  </div>
+</div>
+
+<!-- How to Play Instructions Modal -->
+<div class="modal-backdrop" id="pinballRulesModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 20px;">⚡</span>
+        <h3 class="modal-title">How to Play Pinball Rebounds</h3>
+      </div>
+      <button class="btn btn-icon btn-secondary" id="pinballCloseRulesBtn" aria-label="Close rules">✕</button>
+    </div>
+    <div class="modal-body" style="font-size: 13.5px; line-height: 1.6; color: var(--text-primary);">
+      <p><strong>Overview:</strong> Pinball Rebounds is a high-speed neuro-spatial puzzle combining <em>visual memory</em>, <em>spatial reasoning</em>, and <em>optical reflection physics</em>.</p>
+      
+      <div style="margin: 14px 0; padding: 14px; background-color: var(--bg-surface); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+        <h4 style="color: var(--primary-accent); margin-bottom: 8px; font-size: 14px;">1. The 6-Second Memorization Phase</h4>
+        <p style="font-size: 13px; color: var(--text-secondary);">
+          When a round begins, a 4×4 grid of diagonal mirrors is revealed alongside the laser entrance point. You have <strong>6 seconds</strong> to commit the mirror matrix to memory before <strong>all mirrors disappear!</strong>
+        </p>
+      </div>
+
+      <div style="margin: 14px 0; padding: 14px; background-color: var(--bg-surface); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+        <h4 style="color: var(--secondary-accent); margin-bottom: 8px; font-size: 14px;">2. Mirror Physics &amp; Deflection Rules</h4>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 12.5px;">
+          <div style="padding: 10px; background-color: var(--bg-card); border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+            <div style="font-weight: 700; color: #22D3EE; margin-bottom: 4px;">/ Forward Slash (Cyan)</div>
+            <div>&bull; Entering <strong>Left</strong> &rarr; Deflects <strong>UP</strong></div>
+            <div>&bull; Entering <strong>Right</strong> &rarr; Deflects <strong>DOWN</strong></div>
+            <div>&bull; Entering <strong>Top</strong> &rarr; Deflects <strong>LEFT</strong></div>
+            <div>&bull; Entering <strong>Bottom</strong> &rarr; Deflects <strong>RIGHT</strong></div>
+          </div>
+          <div style="padding: 10px; background-color: var(--bg-card); border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+            <div style="font-weight: 700; color: #60A5FA; margin-bottom: 4px;">\ Backslash (Blue)</div>
+            <div>&bull; Entering <strong>Left</strong> &rarr; Deflects <strong>DOWN</strong></div>
+            <div>&bull; Entering <strong>Right</strong> &rarr; Deflects <strong>UP</strong></div>
+            <div>&bull; Entering <strong>Top</strong> &rarr; Deflects <strong>RIGHT</strong></div>
+            <div>&bull; Entering <strong>Bottom</strong> &rarr; Deflects <strong>LEFT</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin: 14px 0; padding: 14px; background-color: var(--bg-surface); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+        <h4 style="color: #F59E0B; margin-bottom: 6px; font-size: 14px;">3. Boundary Coordinate Identifiers</h4>
+        <p style="font-size: 13px; color: var(--text-secondary);">
+          The 4×4 perimeter features 16 nodes:
+          <br>&bull; <strong>T0 – T3:</strong> Top perimeter (columns 0 to 3)
+          <br>&bull; <strong>B0 – B3:</strong> Bottom perimeter (columns 0 to 3)
+          <br>&bull; <strong>L0 – L3:</strong> Left perimeter (rows 0 to 3)
+          <br>&bull; <strong>R0 – R3:</strong> Right perimeter (rows 0 to 3)
+        </p>
+      </div>
+
+      <p style="font-size: 13px;">
+        Select your predicted exit node either by clicking directly on the perimeter markers or tapping the choice pills below, then hit <strong>Submit Prediction</strong> to unleash the laser!
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary btn-sm" id="pinballDismissRulesBtn">Got it, Let's Play!</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/pinball.js') }}"></script>
+{% endblock %}
+

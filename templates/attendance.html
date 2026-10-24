@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+
+{% block title %}Attendance — UniVerse{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <span class="page-eyebrow">Class Eligibility & Compliance</span>
+    <h2 class="page-title">Attendance Management</h2>
+    <p class="page-subtitle">Track lecture attendance, check eligibility criteria, and calculate classes needed to reach your target.</p>
+  </div>
+</div>
+
+<!-- Attendance Summary Row -->
+<div class="metric-cards-grid" style="margin-bottom: 24px;">
+  <div class="card metric-card">
+    <div class="metric-icon-box" style="background: rgba(16, 185, 129, 0.12); color: var(--badge-dark-green);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="12 6 12 12 14 14"/>
+      </svg>
+    </div>
+    <div class="metric-details">
+      <div class="metric-label">Overall Attendance</div>
+      <div class="metric-value">{{ summary.overall_pct }}%</div>
+      <div class="metric-subtext" style="color: var(--badge-dark-green); font-weight: 600;">{{ summary.overall_status.label }} Status</div>
+    </div>
+  </div>
+
+  <div class="card metric-card">
+    <div class="metric-icon-box" style="background: rgba(91, 140, 255, 0.12); color: var(--primary-accent);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+        <polyline points="22 4 12 14.01 9 11.01"/>
+      </svg>
+    </div>
+    <div class="metric-details">
+      <div class="metric-label">Lectures Attended</div>
+      <div class="metric-value">{{ summary.total_attended }}</div>
+      <div class="metric-subtext">Out of {{ summary.total_conducted }} conducted</div>
+    </div>
+  </div>
+
+  <div class="card metric-card">
+    <div class="metric-icon-box" style="background: rgba(239, 68, 68, 0.12); color: var(--badge-red);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="15" y1="9" x2="9" y2="15"/>
+        <line x1="9" y1="9" x2="15" y2="15"/>
+      </svg>
+    </div>
+    <div class="metric-details">
+      <div class="metric-label">Lectures Missed</div>
+      <div class="metric-value">{{ summary.total_missed }}</div>
+      <div class="metric-subtext" style="color: var(--badge-red); font-weight: 600;">{{ summary.below_threshold_count }} subjects below 75%</div>
+    </div>
+  </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
+  <!-- Subject-wise Attendance Cards -->
+  <div style="display: flex; flex-direction: column; gap: 14px;">
+    {% for s in summary.subjects %}
+    <div class="card" style="padding: 18px 20px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <div>
+          <span style="font-size: 12px; font-weight: 700; color: var(--primary-accent);">{{ s.code }}</span>
+          <h3 style="font-size: 15px; font-weight: 700; color: var(--text-primary); margin-top: 2px;">{{ s.name }}</h3>
+          <span style="font-size: 12px; color: var(--text-secondary);">{{ s.faculty }}</span>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 20px; font-weight: 800; color: {{ s.status_meta.color }};">{{ s.calculated_pct }}%</div>
+          <span class="badge {{ s.status_meta.class }}" style="margin-top: 2px;">{{ s.status_meta.label }}</span>
+        </div>
+      </div>
+
+      <!-- Progress bar -->
+      <div style="height: 8px; background-color: var(--bg-surface); border-radius: 4px; overflow: hidden; margin: 12px 0 8px;">
+        <div style="width: {{ s.calculated_pct }}%; height: 100%; background-color: {{ s.status_meta.color }}; border-radius: 4px;"></div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--text-secondary);">
+        <span>Attended: <strong>{{ s.attended }}</strong> / {{ s.conducted }}</span>
+        <span>Missed: <strong style="color: var(--badge-red);">{{ s.missed }}</strong></span>
+        <span>Insight: <em>{{ s.insight_75.message }}</em></span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Interactive Attendance Calculator -->
+  <div>
+    <div class="card" style="position: sticky; top: 96px;">
+      <div class="card-header">
+        <div class="card-title-group">
+          <div class="card-title-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect width="16" height="20" x="4" y="2" rx="2"/>
+              <line x1="8" y1="6" x2="16" y2="6"/>
+              <line x1="16" y1="14" x2="16" y2="18"/>
+              <path d="M16 10h.01"/>
+              <path d="M12 10h.01"/>
+              <path d="M8 10h.01"/>
+              <path d="M12 14h.01"/>
+              <path d="M8 14h.01"/>
+              <path d="M12 18h.01"/>
+              <path d="M8 18h.01"/>
+            </svg>
+          </div>
+          <h3 class="card-title">Attendance Simulator</h3>
+        </div>
+      </div>
+
+      <form id="attendanceCalcForm" style="display: flex; flex-direction: column; gap: 14px;">
+        <div>
+          <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary); display: block; margin-bottom: 6px;">Select Course</label>
+          <select id="calcSubjectSelect" style="width: 100%;">
+            {% for s in summary.subjects %}
+            <option value="{{ s.id }}" data-attended="{{ s.attended }}" data-conducted="{{ s.conducted }}" {% if s.id == 'cs303' %}selected{% endif %}>
+              {{ s.name }} ({{ s.calculated_pct }}%)
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div>
+          <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary); display: block; margin-bottom: 6px;">Target Threshold (%)</label>
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <input type="range" id="calcTargetInput" min="60" max="95" step="1" value="75" style="flex: 1;" oninput="document.getElementById('targetValDisplay').textContent = this.value + '%'">
+            <span id="targetValDisplay" style="font-size: 14px; font-weight: 700; color: var(--primary-accent); min-width: 40px;">75%</span>
+          </div>
+        </div>
+
+        <!-- Calculated Live Result Box -->
+        <div id="calcResultBox"></div>
+
+        <div style="font-size: 11px; color: var(--text-muted); line-height: 1.4; border-top: 1px solid var(--border-subtle); padding-top: 10px;">
+          Formula: Required consecutive classes $X = \lceil \frac{T \cdot C - A}{1 - T} \rceil$, where $A$ = attended, $C$ = conducted, $T$ = target fraction.
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/attendance.js') }}"></script>
+{% endblock %}

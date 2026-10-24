@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}AI Assistant — UniVerse{% endblock %}
+
+{% block content %}
+<div class="ai-chat-layout">
+  <!-- Left Conversations Sidebar -->
+  <aside class="chat-sidebar">
+    <button class="btn btn-primary" style="width: 100%; margin-bottom: 14px;" onclick="window.location.reload()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+      </svg>
+      <span>New Chat</span>
+    </button>
+
+    <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px;">
+      Recent Conversations
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 4px; overflow-y: auto; flex: 1;">
+      <div style="padding: 10px 12px; border-radius: var(--radius-sm); background-color: var(--bg-surface); border: 1px solid var(--border-color); cursor: pointer;">
+        <div style="font-size: 13px; font-weight: 600; color: var(--text-primary);">BM301 Linear Algebra Summary</div>
+        <div style="font-size: 11px; color: var(--text-secondary);">Today, 9:30 AM</div>
+      </div>
+      <div style="padding: 10px 12px; border-radius: var(--radius-sm); cursor: pointer;">
+        <div style="font-size: 13px; font-weight: 600; color: var(--text-secondary);">Deadlock Banker's Algorithm</div>
+        <div style="font-size: 11px; color: var(--text-muted);">Yesterday</div>
+      </div>
+      <div style="padding: 10px 12px; border-radius: var(--radius-sm); cursor: pointer;">
+        <div style="font-size: 13px; font-weight: 600; color: var(--text-secondary);">AVL Tree Balance Factors</div>
+        <div style="font-size: 11px; color: var(--text-muted);">3 days ago</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Conversation Area -->
+  <section class="chat-main-area">
+    <!-- Model Selector Row -->
+    <div class="model-selector-row">
+      <span style="font-size: 12px; font-weight: 600; color: var(--text-muted); margin-right: 6px;">Mode:</span>
+      <button class="model-pill active" data-model="Flash">⚡ Flash (Quick Answers)</button>
+      <button class="model-pill" data-model="Live">🎙️ Live (Audio Mode)</button>
+      <button class="model-pill" data-model="Thinking">🧠 Thinking (Deep Analysis)</button>
+      <button class="model-pill" data-model="Research">🔬 Research (Citations)</button>
+      <span class="badge badge-event" id="activeModelBadge" style="margin-left: auto;">Flash Mode Active</span>
+    </div>
+
+    <!-- Message History Stream -->
+    <div class="chat-messages-container" id="fullChatMessages">
+      <!-- Assistant Welcome Message -->
+      <div class="chat-message-row assistant">
+        <div class="chat-avatar-box">
+          <img src="{{ url_for('static', filename='images/robot_avatar.svg') }}" alt="AI">
+        </div>
+        <div class="chat-bubble-content">
+          <h4 style="margin-bottom: 6px; color: var(--primary-accent);">Welcome to UniVerse Academic Co-Pilot! 🚀</h4>
+          <p>I am your university AI companion. I have access to your enrolled courses, current semester timetable, and upcoming continuous assessments.</p>
+          <div style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px;">
+            <button class="quick-action-pill" data-prompt="Summarize my Business Mathematics notes for CA 2">Summarize BM301 Notes</button>
+            <button class="quick-action-pill" data-prompt="Explain Dijkstra Algorithm time complexity">Dijkstra Complexity</button>
+            <button class="quick-action-pill" data-prompt="What score do I need in CS303 CA 3 for an 8.5 target?">Calculate CA 3 Target</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input Footer Bar -->
+    <div class="chat-input-bar-wrap">
+      <textarea class="chat-textarea" id="fullChatInput" rows="1" placeholder="Type a message or paste lecture code... (Press Enter to send, Shift+Enter for new line)"></textarea>
+      <button class="btn btn-primary" id="fullChatSendBtn" style="border-radius: var(--radius-pill); padding: 10px 18px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+        <span>Send</span>
+      </button>
+    </div>
+  </section>
+</div>
+{% endblock %}

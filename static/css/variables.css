@@ -1,0 +1,159 @@
+:root {
+  /* ----------------- DARK THEME (Obsidian Studio & Luminous Electric Blue) ----------------- */
+  --bg-primary: #07090E;
+  --bg-sidebar: #0A0D15;
+  --bg-header: rgba(10, 13, 21, 0.88);
+  --bg-card: #0E121D;
+  --bg-card-hover: #131826;
+  --bg-surface: #121724;
+  --bg-surface-elevated: #171E2E;
+  --bg-input: #0A0D15;
+  --bg-inset: #080A10;
+  
+  /* Brand Accents: Electric Blue & Luminous Cyan */
+  --primary-accent: #38BDF8;
+  --primary-hover: #7DD3FC;
+  --primary-active: #0284C7;
+  --primary-glow: rgba(56, 189, 248, 0.28);
+  --primary-subtle: rgba(56, 189, 248, 0.10);
+  --primary-gradient: linear-gradient(135deg, #38BDF8 0%, #2563EB 100%);
+  --primary-gradient-subtle: linear-gradient(135deg, rgba(56, 189, 248, 0.12) 0%, rgba(37, 99, 235, 0.04) 100%);
+  
+  --secondary-accent: #2DD4BF;
+  --secondary-hover: #5EEAD4;
+  --secondary-glow: rgba(45, 212, 191, 0.22);
+  --secondary-subtle: rgba(45, 212, 191, 0.10);
+  
+  /* Dabbit-Inspired Boutique Pastel Swatches */
+  --pastel-mint: #CFE7D5;
+  --pastel-lavender: #D4C6E6;
+  --pastel-peach: #F4A48C;
+  --pastel-buttercup: #F9D98D;
+  --pastel-sky: #B9C9EA;
+  --pastel-pink: #F1BCCB;
+
+  /* Text & Contrast (Crisp Studio Contrast) */
+  --text-primary: #FFFFFF;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --text-inverse: #07090E;
+  
+  /* Hairline Borders (1px Razor-Sharp Dabbit Grid) */
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.04);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --border-focus: #38BDF8;
+  --border-glow: rgba(56, 189, 248, 0.40);
+
+  /* Status Jewels */
+  --badge-dark-green: #10B981;
+  --badge-light-green: #34D399;
+  --badge-yellow: #F59E0B;
+  --badge-orange: #F97316;
+  --badge-red: #EF4444;
+  --badge-purple: #A855F7;
+  --badge-coral: #FB7185;
+
+  /* Ambient Studio Shadows */
+  --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px -6px rgba(0, 0, 0, 0.6);
+  --card-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.5), 0 20px 48px -8px rgba(0, 0, 0, 0.7);
+  --card-shadow-elevated: 0 8px 32px rgba(0, 0, 0, 0.65), 0 28px 72px -12px rgba(0, 0, 0, 0.8);
+  --modal-shadow: 0 24px 64px -12px rgba(0, 0, 0, 0.9);
+  --floating-pill-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.4);
+  --active-nav-bg: rgba(56, 189, 248, 0.09);
+  
+  /* Spacing Scale */
+  --space-2xs: 2px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 14px;
+  --space-lg: 20px;
+  --space-xl: 28px;
+  --space-2xl: 40px;
+
+  /* Curvature (Refined Studio Frames) */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 22px;
+  --radius-2xl: 28px;
+  --radius-pill: 9999px;
+
+  --btn-height-sm: 34px;
+  --btn-height: 40px;
+  --input-height: 40px;
+
+  --transition-fast: 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-base: 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-spring: 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --sidebar-width: 255px;
+  --sidebar-collapsed-width: 72px;
+  --topbar-height: 64px;
+  --font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --chart-grid-color: rgba(255, 255, 255, 0.05);
+  --chart-label-color: #94A3B8;
+}
+
+[data-theme="light"] {
+  /* ----------------- LIGHT THEME (Warm Pearl & Gallery Studio — Reference Style) ----------------- */
+  --bg-primary: #F7F7F5;
+  --bg-sidebar: #EFEFED;
+  --bg-header: rgba(247, 247, 245, 0.90);
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #FAFAF8;
+  --bg-surface: #F2F2EF;
+  --bg-surface-elevated: #E8E8E4;
+  --bg-input: #FFFFFF;
+  --bg-inset: #ECECE8;
+  
+  /* Brand Accents: Electric Sapphire & Deep Obsidian */
+  --primary-accent: #2563EB;
+  --primary-hover: #1D4ED8;
+  --primary-active: #1E40AF;
+  --primary-glow: rgba(37, 99, 235, 0.16);
+  --primary-subtle: rgba(37, 99, 235, 0.08);
+  --primary-gradient: linear-gradient(135deg, #111318 0%, #1E293B 100%);
+  --primary-gradient-subtle: linear-gradient(135deg, rgba(37, 99, 235, 0.08) 0%, rgba(20, 184, 166, 0.04) 100%);
+  
+  --secondary-accent: #0D9488;
+  --secondary-hover: #0F766E;
+  --secondary-glow: rgba(13, 148, 136, 0.14);
+  --secondary-subtle: rgba(13, 148, 136, 0.08);
+  
+  /* Text & Contrast (Crisp Charcoal Typography) */
+  --text-primary: #111318;
+  --text-secondary: #575A66;
+  --text-muted: #8E92A0;
+  --text-inverse: #FFFFFF;
+  
+  /* Hairline Borders */
+  --border-color: rgba(0, 0, 0, 0.08);
+  --border-subtle: rgba(0, 0, 0, 0.04);
+  --border-strong: rgba(0, 0, 0, 0.14);
+  --border-focus: #2563EB;
+  --border-glow: rgba(37, 99, 235, 0.25);
+
+  --badge-dark-green: #059669;
+  --badge-light-green: #10B981;
+  --badge-yellow: #D97706;
+  --badge-orange: #EA580C;
+  --badge-red: #DC2626;
+  --badge-purple: #9333EA;
+  --badge-coral: #E11D48;
+
+  /* Ambient Multi-Layer Diffuse Shadows */
+  --card-shadow: 0 1px 3px rgba(17, 19, 24, 0.03), 0 8px 24px -4px rgba(17, 19, 24, 0.05);
+  --card-shadow-hover: 0 2px 6px rgba(17, 19, 24, 0.04), 0 16px 36px -6px rgba(17, 19, 24, 0.08);
+  --card-shadow-elevated: 0 4px 16px rgba(17, 19, 24, 0.05), 0 24px 48px -8px rgba(17, 19, 24, 0.10);
+  --modal-shadow: 0 24px 60px -8px rgba(17, 19, 24, 0.14);
+  --floating-pill-shadow: 0 16px 36px rgba(17, 19, 24, 0.12), 0 2px 6px rgba(17, 19, 24, 0.04);
+  --active-nav-bg: rgba(17, 19, 24, 0.07);
+  
+  --chart-grid-color: rgba(0, 0, 0, 0.05);
+  --chart-label-color: #64748B;
+}
+
+

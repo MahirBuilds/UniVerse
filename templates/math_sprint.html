@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+
+{% block title %}Math Sprint — UniVerse Brain Gym{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+      <a href="{{ url_for('brain_gym') }}" class="card-link" style="font-size: 13px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to Brain Gym
+      </a>
+      <span class="badge" style="background-color: rgba(245, 158, 11, 0.12); color: #F59E0B; border: 1px solid rgba(245, 158, 11, 0.25);">
+        Speed Arithmetic
+      </span>
+    </div>
+    <span class="page-eyebrow">Speed Arithmetic Challenge</span>
+    <h2 class="page-title">Math Sprint</h2>
+  </div>
+
+  <div style="display: flex; gap: 12px; align-items: center;">
+    <div class="card" style="padding: 8px 16px; text-align: center; min-width: 80px;">
+      <div style="font-size: 10.5px; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Time Left</div>
+      <div style="font-size: 20px; font-weight: 800; color: #FF5A5A; margin-top: 2px;" id="mathTimer">60s</div>
+    </div>
+    <div class="card" style="padding: 8px 16px; text-align: center; min-width: 80px;">
+      <div style="font-size: 10.5px; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Score</div>
+      <div style="font-size: 20px; font-weight: 800; color: var(--primary-accent); margin-top: 2px;" id="mathScore">0</div>
+    </div>
+    <div class="card" style="padding: 8px 16px; text-align: center; min-width: 80px;">
+      <div style="font-size: 10.5px; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Streak</div>
+      <div style="font-size: 20px; font-weight: 800; color: #F59E0B; margin-top: 2px;" id="mathStreak">0 🔥</div>
+    </div>
+  </div>
+</div>
+
+<div style="max-width: 520px; margin: 0 auto;">
+  <div class="card" style="text-align: center; padding: 36px 28px;">
+    <div id="mathGameIntro">
+      <h3 style="font-size: 20px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">Ready for Speed Arithmetic?</h3>
+      <p style="font-size: 13.5px; color: var(--text-secondary); margin-bottom: 24px;">Solve as many mental arithmetic questions as possible in 60 seconds. High combos earn double points!</p>
+      <button class="btn btn-primary" onclick="startMathSprint()" style="padding: 10px 28px; font-size: 15px;">
+        Start 60-Second Sprint ⚡
+      </button>
+    </div>
+
+    <div id="mathGamePlay" style="display: none;">
+      <div style="font-size: 38px; font-weight: 900; color: var(--text-primary); margin-bottom: 20px; letter-spacing: 2px;" id="mathEquation">
+        12 + 15 = ?
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;" id="mathOptions"></div>
+
+      <div id="mathFeedback" style="height: 24px; font-size: 14px; font-weight: 600;"></div>
+    </div>
+
+    <div id="mathGameOver" style="display: none;">
+      <h3 style="font-size: 22px; font-weight: 800; color: var(--text-primary); margin-bottom: 6px;">Sprint Completed! 🏆</h3>
+      <div style="font-size: 32px; font-weight: 900; color: var(--primary-accent); margin: 12px 0;" id="finalMathScore">
+        +180 pts
+      </div>
+      <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">Score added to your Brain Gym profile ranking!</p>
+      <button class="btn btn-primary" onclick="startMathSprint()">Play Again ⟳</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let mathTime = 60;
+let mathScoreVal = 0;
+let mathStreakVal = 0;
+let mathInterval = null;
+let currentCorrectAnswer = 0;
+
+function startMathSprint() {
+  mathTime = 60;
+  mathScoreVal = 0;
+  mathStreakVal = 0;
+  document.getElementById('mathTimer').textContent = '60s';
+  document.getElementById('mathScore').textContent = '0';
+  document.getElementById('mathStreak').textContent = '0 🔥';
+
+  document.getElementById('mathGameIntro').style.display = 'none';
+  document.getElementById('mathGameOver').style.display = 'none';
+  document.getElementById('mathGamePlay').style.display = 'block';
+
+  clearInterval(mathInterval);
+  mathInterval = setInterval(() => {
+    mathTime--;
+    document.getElementById('mathTimer').textContent = `${mathTime}s`;
+    if (mathTime <= 0) {
+      endMathSprint();
+    }
+  }, 1000);
+
+  nextMathQuestion();
+}
+
+function nextMathQuestion() {
+  const ops = ['+', '-', '×'];
+  const op = ops[Math.floor(Math.random() * ops.length)];
+  let n1, n2, ans;
+
+  if (op === '+') {
+    n1 = Math.floor(Math.random() * 50) + 5;
+    n2 = Math.floor(Math.random() * 50) + 5;
+    ans = n1 + n2;
+  } else if (op === '-') {
+    n1 = Math.floor(Math.random() * 60) + 20;
+    n2 = Math.floor(Math.random() * n1) + 1;
+    ans = n1 - n2;
+  } else {
+    n1 = Math.floor(Math.random() * 12) + 2;
+    n2 = Math.floor(Math.random() * 12) + 2;
+    ans = n1 * n2;
+  }
+
+  currentCorrectAnswer = ans;
+  document.getElementById('mathEquation').textContent = `${n1} ${op} ${n2} = ?`;
+
+  // Generate 4 options
+  const wrongOffsets = [-4, -2, -1, 1, 2, 3, 5];
+  const options = [ans];
+  while (options.length < 4) {
+    const wrong = ans + wrongOffsets[Math.floor(Math.random() * wrongOffsets.length)];
+    if (!options.includes(wrong) && wrong >= 0) options.push(wrong);
+  }
+  options.sort(() => Math.random() - 0.5);
+
+  const container = document.getElementById('mathOptions');
+  container.innerHTML = options.map(opt => `
+    <button class="btn btn-secondary" style="font-size: 18px; font-weight: 700; padding: 14px;" onclick="checkMathAnswer(${opt}, this)">
+      ${opt}
+    </button>
+  `).join('');
+}
+
+function checkMathAnswer(selected, btn) {
+  const feedback = document.getElementById('mathFeedback');
+  if (selected === currentCorrectAnswer) {
+    mathStreakVal++;
+    const pts = 10 + Math.min(mathStreakVal * 2, 20);
+    mathScoreVal += pts;
+    feedback.innerHTML = `<span style="color: var(--badge-dark-green);">✓ Correct! (+${pts} pts)</span>`;
+  } else {
+    mathStreakVal = 0;
+    feedback.innerHTML = `<span style="color: var(--badge-red);">✗ Incorrect! Answer was ${currentCorrectAnswer}</span>`;
+  }
+
+  document.getElementById('mathScore').textContent = mathScoreVal;
+  document.getElementById('mathStreak').textContent = `${mathStreakVal} 🔥`;
+  setTimeout(nextMathQuestion, 300);
+}
+
+function endMathSprint() {
+  clearInterval(mathInterval);
+  document.getElementById('mathGamePlay').style.display = 'none';
+  document.getElementById('mathGameOver').style.display = 'block';
+  document.getElementById('finalMathScore').textContent = `+${mathScoreVal} pts`;
+
+  // Submit score to backend
+  fetch('/api/game/submit-score', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ points: mathScoreVal, game_id: 'math_sprint' })
+  });
+}
+</script>
+{% endblock %}

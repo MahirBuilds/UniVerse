@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block title %}Progress Report — UniVerse{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <span class="page-eyebrow">Target Modeling & Projections</span>
+    <h2 class="page-title">Academic Progress Report</h2>
+    <p class="page-subtitle">Continuous assessment trajectories, target projections, and mathematical required score modeling.</p>
+  </div>
+
+  <!-- Subject Selector -->
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <label style="font-size: 13px; font-weight: 600; color: var(--text-secondary);">Subject:</label>
+    <select id="academicSubjectSelect" class="progress-select" style="padding: 8px 14px; font-size: 13.5px; font-weight: 600; background-color: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+      {% for s in subjects %}
+      <option value="{{ s.id }}" {% if s.id == selected_subject_id %}selected{% endif %}>{{ s.name }} ({{ s.code }})</option>
+      {% endfor %}
+    </select>
+  </div>
+</div>
+
+<!-- 3 Projection Cards -->
+<div class="metric-cards-grid" style="margin-bottom: 24px;">
+  <div class="card metric-card">
+    <div class="metric-icon-box" style="background: rgba(91, 140, 255, 0.12); color: var(--primary-accent);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <circle cx="12" cy="12" r="6"/>
+        <circle cx="12" cy="12" r="2"/>
+      </svg>
+    </div>
+    <div class="metric-details">
+      <div class="metric-label">Configured Target</div>
+      <div class="metric-value" id="academicTargetVal">{{ perf.target_marks }} / 10</div>
+      <div class="metric-subtext" style="color: var(--secondary-accent); font-weight: 600;">{{ perf.target_percentage }}% Objective</div>
+    </div>
+  </div>
+
+  <div class="card metric-card">
+    <div class="metric-icon-box" style="background: rgba(16, 185, 129, 0.12); color: var(--badge-dark-green);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="20" x2="18" y2="10"/>
+        <line x1="12" y1="20" x2="12" y2="4"/>
+        <line x1="6" y1="20" x2="6" y2="14"/>
+      </svg>
+    </div>
+    <div class="metric-details">
+      <div class="metric-label">Current Average</div>
+      <div class="metric-value" id="academicCurrentVal">{{ perf.current_marks }} / 10</div>
+      <div class="metric-subtext" style="color: var(--primary-accent);">{{ perf.completed_count }} of {{ perf.total_assessments }} assessments done</div>
+    </div>
+  </div>
+
+  <div class="card metric-card">
+    <div class="metric-icon-box" style="background: rgba(239, 68, 68, 0.12); color: #FF6B6B;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="12 6 12 12 14 14"/>
+      </svg>
+    </div>
+    <div class="metric-details">
+      <div class="metric-label">Required in Remaining</div>
+      <div class="metric-value" id="academicRequiredVal" style="color: #FF6B6B;">{{ perf.required_marks }} / 10</div>
+      <div class="metric-subtext" id="academicRequiredSub">to hit {{ perf.target_percentage }}% target</div>
+    </div>
+  </div>
+</div>
+
+<!-- Chart Card -->
+<div class="card" style="margin-bottom: 24px;">
+  <div class="card-header">
+    <div class="card-title-group">
+      <div class="card-title-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="20" x2="18" y2="10"/>
+          <line x1="12" y1="20" x2="12" y2="4"/>
+          <line x1="6" y1="20" x2="6" y2="14"/>
+        </svg>
+      </div>
+      <h3 class="card-title">Performance Trend & Projection Graph</h3>
+    </div>
+  </div>
+
+  <div style="height: 280px; position: relative;">
+    <canvas id="academicProgressChart"></canvas>
+  </div>
+</div>
+
+<!-- Detailed Assessments Breakdown Table -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title-group">
+      <div class="card-title-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect width="18" height="18" x="3" y="3" rx="2"/>
+          <path d="m9 12 2 2 4-4"/>
+        </svg>
+      </div>
+      <h3 class="card-title">Continuous Assessments Breakdown</h3>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ASSESSMENT</th>
+          <th>TOPIC / MODULE</th>
+          <th>DATE</th>
+          <th>OBTAINED MARKS</th>
+          <th>MAX MARKS</th>
+          <th>STATUS</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for rec in perf.records %}
+        <tr>
+          <td style="font-weight: 700; color: var(--primary-accent);">{{ rec.name }}</td>
+          <td style="color: var(--text-primary); font-weight: 500;">{{ rec.title }}</td>
+          <td style="color: var(--text-secondary);">{{ rec.date }}</td>
+          <td style="font-weight: 700;">
+            {% if rec.obtained_marks is not none %}
+            <span style="color: var(--badge-dark-green);">{{ rec.obtained_marks }}</span>
+            {% else %}
+            <span style="color: var(--text-muted); font-weight: normal;">Pending Evaluation</span>
+            {% endif %}
+          </td>
+          <td style="color: var(--text-secondary);">{{ rec.max_marks }}</td>
+          <td>
+            {% if rec.is_completed %}
+            <span class="badge badge-dark-green">Completed</span>
+            {% else %}
+            <span class="badge badge-yellow">Upcoming</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

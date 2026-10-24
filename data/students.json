@@ -1,0 +1,25 @@
+{
+  "student": {
+    "name": "Mahir Limbani",
+    "branch": "Computer Science and Engineering",
+    "branch_short": "CSE (B.Tech)",
+    "semester": 3,
+    "student_id": "USTU23045",
+    "email": "mahir.limbani@universe.edu",
+    "phone": "+91 98765 43210",
+    "avatar": "/static/images/avatar.svg",
+    "overall_attendance": 78,
+    "attendance_trend": "+5%",
+    "average_marks": 8.1,
+    "max_marks": 10,
+    "brain_gym_points": 1240,
+    "brain_gym_rank": 5,
+    "enrolled_subjects_count": 6,
+    "credits_earned": 46,
+    "total_credits": 160,
+    "cgpa": 8.42,
+    "sgpa": 8.60,
+    "hostel": "Block B, Room 314",
+    "mentor": "Prof. A. Sharma (Head of Dept.)"
+  }
+}

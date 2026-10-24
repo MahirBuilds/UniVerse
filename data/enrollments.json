@@ -1,0 +1,69 @@
+{
+  "enrollment_catalog": [
+    {
+      "id": "cs401",
+      "code": "CS401",
+      "name": "Design & Analysis of Algorithms",
+      "type": "Core",
+      "credits": 4,
+      "faculty": "Prof. K. Verma",
+      "slots": "Mon/Wed 10:00 - 11:30",
+      "capacity": 60,
+      "enrolled_count": 52,
+      "status": "Available",
+      "prerequisites": "CS303 (Data Structures)"
+    },
+    {
+      "id": "cs402",
+      "code": "CS402",
+      "name": "Artificial Intelligence & Expert Systems",
+      "type": "Elective",
+      "credits": 3,
+      "faculty": "Dr. S. Nair",
+      "slots": "Tue/Thu 14:00 - 15:30",
+      "capacity": 45,
+      "enrolled_count": 40,
+      "status": "Available",
+      "prerequisites": "CS302, BM301"
+    },
+    {
+      "id": "cs403",
+      "code": "CS403",
+      "name": "Cloud Computing & Distributed Systems",
+      "type": "Elective",
+      "credits": 3,
+      "faculty": "Prof. R. Mehta",
+      "slots": "Wed/Fri 11:30 - 13:00",
+      "capacity": 50,
+      "enrolled_count": 49,
+      "status": "Almost Full",
+      "prerequisites": "CS305 (Computer Networks)"
+    },
+    {
+      "id": "cs404",
+      "code": "CS404",
+      "name": "Full Stack Web Engineering",
+      "type": "Elective",
+      "credits": 3,
+      "faculty": "Prof. S. Iyer",
+      "slots": "Mon/Thu 16:00 - 17:30",
+      "capacity": 50,
+      "enrolled_count": 35,
+      "status": "Available",
+      "prerequisites": "CS304 (DBMS)"
+    },
+    {
+      "id": "cs405",
+      "code": "CS405",
+      "name": "Cybersecurity & Cryptography",
+      "type": "Elective",
+      "credits": 3,
+      "faculty": "Dr. P. Sen",
+      "slots": "Tue/Fri 09:00 - 10:30",
+      "capacity": 40,
+      "enrolled_count": 38,
+      "status": "Available",
+      "prerequisites": "CS305, BM301"
+    }
+  ]
+}

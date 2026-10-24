@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+
+{% block title %}Examinations — UniVerse{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <span class="page-eyebrow">Continuous Assessment</span>
+    <h2 class="page-title">Examinations & Results</h2>
+    <p class="page-subtitle">Mid-semester schedules, hall ticket generation, and verified university grade history.</p>
+  </div>
+  <button class="btn btn-primary btn-sm" onclick="openHallTicketModal()">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="7 10 12 15 17 10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>
+    <span>Download CA-2 Hall Ticket</span>
+  </button>
+</div>
+
+<!-- Upcoming Assessments Schedule -->
+<div class="card" style="margin-bottom: 24px;">
+  <div class="card-header">
+    <div class="card-title-group">
+      <div class="card-title-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect width="18" height="18" x="3" y="4" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/>
+          <line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+      </div>
+      <h3 class="card-title">Upcoming Continuous Assessments (CA-2)</h3>
+    </div>
+    <span class="badge badge-important">Commences Oct 18, 2026</span>
+  </div>
+
+  <div class="table-responsive">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>DATE & TIME</th>
+          <th>CODE</th>
+          <th>SUBJECT</th>
+          <th>ROOM</th>
+          <th>SYLLABUS COVERAGE</th>
+          <th>STATUS</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ex in upcoming_exams %}
+        <tr>
+          <td style="font-weight: 600; color: var(--text-primary);">
+            <div>{{ ex.date }}</div>
+            <div style="font-size: 11px; color: var(--text-muted); font-weight: normal; margin-top: 2px;">{{ ex.time }}</div>
+          </td>
+          <td style="font-weight: 700; color: var(--primary-accent);">{{ ex.code }}</td>
+          <td style="font-weight: 600; color: var(--text-primary);">{{ ex.subject }}</td>
+          <td style="color: var(--text-secondary);">{{ ex.room }}</td>
+          <td style="font-size: 12px; color: var(--text-secondary); max-width: 280px;">{{ ex.syllabus }}</td>
+          <td>
+            {% if ex.hall_ticket_ready %}
+            <span class="badge badge-dark-green">Admit Card Ready</span>
+            {% else %}
+            <span class="badge badge-yellow">Pending Allotment</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Past Semester Examination Transcripts -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title-group">
+      <div class="card-title-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+        </svg>
+      </div>
+      <h3 class="card-title">Past Academic Grade History</h3>
+    </div>
+  </div>
+
+  {% for sem in past_results %}
+  <div style="margin-bottom: 20px; border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden;">
+    <div style="padding: 12px 16px; background-color: var(--bg-surface); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle);">
+      <div>
+        <strong style="color: var(--text-primary); font-size: 14px;">{{ sem.semester }}</strong>
+        <span class="badge badge-dark-green" style="margin-left: 10px;">{{ sem.result_status }}</span>
+      </div>
+      <div style="font-size: 14px; font-weight: 700; color: var(--primary-accent);">SGPA: {{ sem.gpa }} / 10</div>
+    </div>
+    <div class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>CODE</th>
+            <th>COURSE TITLE</th>
+            <th>CREDITS</th>
+            <th>MARKS</th>
+            <th>GRADE</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for rec in sem.records %}
+          <tr>
+            <td style="font-weight: 600; color: var(--primary-accent);">{{ rec.code }}</td>
+            <td style="color: var(--text-primary); font-weight: 500;">{{ rec.name }}</td>
+            <td>{{ rec.credits }}</td>
+            <td>{{ rec.marks }} / {{ rec.max_marks }}</td>
+            <td style="font-weight: 700; color: var(--badge-dark-green);">{{ rec.grade }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- Hall Ticket Preview Modal -->
+<div class="modal-backdrop" id="hallTicketModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 class="modal-title">Official Hall Ticket / Admit Card</h3>
+      <button class="btn btn-icon btn-secondary" onclick="document.getElementById('hallTicketModal').classList.remove('active')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="border: 2px dashed var(--border-color); border-radius: var(--radius-md); padding: 18px; background-color: var(--bg-surface);">
+        <div style="text-align: center; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 14px;">
+          <h2 style="font-size: 18px; font-weight: 800; color: var(--primary-accent);">UniVerse Examination Board</h2>
+          <p style="font-size: 12px; color: var(--text-secondary);">Semester 3 Continuous Assessment 2 (Autumn 2026)</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 100px; gap: 14px; margin-bottom: 14px;">
+          <div style="font-size: 13px; line-height: 1.6; color: var(--text-primary);">
+            <div>Candidate: <strong>{{ student.name }}</strong></div>
+            <div>Student ID: <strong>{{ student.student_id }}</strong></div>
+            <div>Branch: <strong>{{ student.branch }}</strong></div>
+            <div>Exam Center: <strong>Academic Block 3, Hall 302</strong></div>
+          </div>
+          <div style="text-align: center;">
+            <img src="{{ student.avatar|default('/static/images/avatar.svg') }}" alt="Student {{ student.name }}" style="width: 70px; height: 70px; border-radius: 8px; border: 1px solid var(--border-color); object-fit: cover;" onerror="this.onerror=null; this.src='/static/images/avatar.svg';">
+          </div>
+        </div>
+
+        <div style="font-size: 11px; color: var(--text-muted); line-height: 1.4; border-top: 1px solid var(--border-color); padding-top: 10px;">
+          <em>Instructions: Students must report 15 minutes before scheduled start time with physical college identity badge. Scientific non-programmable calculators permitted.</em>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary btn-sm" onclick="window.print()">Print Admit Card</button>
+      <button class="btn btn-primary btn-sm" onclick="document.getElementById('hallTicketModal').classList.remove('active')">Close</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function openHallTicketModal() {
+  document.getElementById('hallTicketModal').classList.add('active');
+}
+</script>
+{% endblock %}

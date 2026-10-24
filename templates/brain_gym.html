@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}Brain Gym — UniVerse{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <span class="page-eyebrow">Cognitive Fitness</span>
+    <h2 class="page-title">Brain Gym</h2>
+    <p class="page-subtitle">Neuro-cognitive puzzles, speed math sprints, and spatial physics games to sharpen your intellect during breaks.</p>
+  </div>
+  <div style="display: flex; gap: 10px;">
+    <a href="{{ url_for('leaderboard') }}" class="btn btn-secondary btn-sm">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+        <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+        <path d="M4 22h16"/>
+        <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+      </svg>
+      <span>View Leaderboard (#5)</span>
+    </a>
+  </div>
+</div>
+
+<!-- Featured Game Hero Banner -->
+<div class="card" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(20, 184, 166, 0.08) 100%); border-color: rgba(59, 130, 246, 0.3); margin-bottom: 24px; padding: 24px 28px;">
+  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+    <div style="max-width: 580px;">
+      <span class="badge" style="background-color: var(--primary-accent); color: #FFFFFF; margin-bottom: 8px;">★ FEATURED ORIGINAL GAME</span>
+      <h3 style="font-size: 22px; font-weight: 800; color: var(--text-primary); margin-bottom: 6px;">Pinball Rebounds: Laser Reflection Matrix</h3>
+      <p style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 16px;">
+        Predict where the laser beam exits after deflecting through multi-angle mirrors (/ and \). Full physics simulation with loop-detection algorithms!
+      </p>
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <a href="{{ url_for('pinball_game') }}" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+          <span>Play Pinball Rebounds</span>
+        </a>
+        <span style="font-size: 12px; color: var(--text-muted);">High Score: <strong>520 pts</strong></span>
+      </div>
+    </div>
+    <div style="width: 110px; height: 110px; border-radius: var(--radius-xl); background: var(--bg-card); border: 2px solid var(--primary-accent); display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px var(--primary-glow);">
+      <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary-accent);">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="22" y1="12" x2="18" y2="12"/>
+        <line x1="6" y1="12" x2="2" y2="12"/>
+        <line x1="12" y1="6" x2="12" y2="2"/>
+        <line x1="12" y1="22" x2="12" y2="18"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- All Games Grid -->
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;">
+  {% for g in games %}
+  <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+    <div>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <span class="badge" style="background-color: var(--bg-surface); color: {{ g.accent_color }}; border: 1px solid var(--border-color);">
+          {{ g.category }}
+        </span>
+        <span class="badge badge-light-green">{{ g.difficulty }}</span>
+      </div>
+
+      <h3 style="font-size: 17px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px;">{{ g.title }}</h3>
+      <p style="font-size: 12.5px; color: var(--text-secondary); line-height: 1.45; margin-bottom: 16px;">{{ g.description }}</p>
+
+      <div style="display: flex; justify-content: space-between; font-size: 11.5px; color: var(--text-muted); padding: 8px 12px; background-color: var(--bg-surface); border-radius: var(--radius-sm); border: 1px solid var(--border-color); margin-bottom: 16px;">
+        <span>Duration: <strong>{{ g.duration }}</strong></span>
+        <span>Best Score: <strong style="color: var(--primary-accent);">{{ g.best_score }}</strong></span>
+      </div>
+    </div>
+
+    <div style="border-top: 1px solid var(--border-subtle); padding-top: 12px; display: flex; justify-content: space-between; align-items: center;">
+      <span style="font-size: 11.5px; color: var(--text-muted);">Points count for ranking</span>
+      <a href="{{ g.route }}" class="btn btn-primary btn-sm">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="5 3 19 12 5 21 5 3"/>
+        </svg>
+        <span>Play Now</span>
+      </a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

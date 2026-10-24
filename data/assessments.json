@@ -1,0 +1,294 @@
+{
+  "assessments": {
+    "bm301": {
+      "subject_id": "bm301",
+      "subject_name": "Business Mathematics",
+      "target_marks": 8.5,
+      "current_marks": 8.1,
+      "max_marks": 10.0,
+      "target_percentage": 85.0,
+      "records": [
+        {
+          "name": "CA 1",
+          "title": "Continuous Assessment 1 (Linear Algebra)",
+          "max_marks": 10.0,
+          "obtained_marks": 7.5,
+          "target_marks": 8.5,
+          "status": "Completed",
+          "is_completed": true,
+          "date": "2026-08-20"
+        },
+        {
+          "name": "CA 2",
+          "title": "Continuous Assessment 2 (Calculus & Optimization)",
+          "max_marks": 10.0,
+          "obtained_marks": 8.7,
+          "target_marks": 8.5,
+          "status": "Completed",
+          "is_completed": true,
+          "date": "2026-09-15"
+        },
+        {
+          "name": "CA 3",
+          "title": "Continuous Assessment 3 (Probability Distributions)",
+          "max_marks": 10.0,
+          "obtained_marks": null,
+          "target_marks": 8.5,
+          "status": "Upcoming",
+          "is_completed": false,
+          "date": "2026-10-18"
+        },
+        {
+          "name": "CA 4",
+          "title": "Continuous Assessment 4 (Comprehensive)",
+          "max_marks": 10.0,
+          "obtained_marks": null,
+          "target_marks": 8.5,
+          "status": "Upcoming",
+          "is_completed": false,
+          "date": "2026-11-10"
+        }
+      ]
+    },
+    "cs302": {
+      "subject_id": "cs302",
+      "subject_name": "Operating Systems",
+      "target_marks": 8.0,
+      "current_marks": 7.8,
+      "max_marks": 10.0,
+      "target_percentage": 80.0,
+      "records": [
+        {
+          "name": "CA 1",
+          "title": "Process Scheduling & IPC",
+          "max_marks": 10.0,
+          "obtained_marks": 7.2,
+          "target_marks": 8.0,
+          "status": "Completed",
+          "is_completed": true,
+          "date": "2026-08-24"
+        },
+        {
+          "name": "CA 2",
+          "title": "Deadlock & Synchronization",
+          "max_marks": 10.0,
+          "obtained_marks": 8.4,
+          "target_marks": 8.0,
+          "status": "Completed",
+          "is_completed": true,
+          "date": "2026-09-18"
+        },
+        {
+          "name": "CA 3",
+          "title": "Virtual Memory & Paging",
+          "max_marks": 10.0,
+          "obtained_marks": null,
+          "target_marks": 8.0,
+          "status": "Upcoming",
+          "is_completed": false,
+          "date": "2026-10-22"
+        },
+        {
+          "name": "CA 4",
+          "title": "File Systems & I/O",
+          "max_marks": 10.0,
+          "obtained_marks": null,
+          "target_marks": 8.0,
+          "status": "Upcoming",
+          "is_completed": false,
+          "date": "2026-11-14"
+        }
+      ]
+    },
+    "cs303": {
+      "subject_id": "cs303",
+      "subject_name": "Data Structures",
+      "target_marks": 8.5,
+      "current_marks": 6.8,
+      "max_marks": 10.0,
+      "target_percentage": 85.0,
+      "records": [
+        {
+          "name": "CA 1",
+          "title": "Arrays, Stacks, Queues",
+          "max_marks": 10.0,
+          "obtained_marks": 6.5,
+          "target_marks": 8.5,
+          "status": "Completed",
+          "is_completed": true,
+          "date": "2026-08-26"
+        },
+        {
+          "name": "CA 2",
+          "title": "Trees & Binary Search Trees",
+          "max_marks": 10.0,
+          "obtained_marks": 7.1,
+          "target_marks": 8.5,
+          "status": "Completed",
+          "is_completed": true,
+          "date": "2026-09-20"
+        },
+        {
+          "name": "CA 3",
+          "title": "Graphs & Minimum Spanning Trees",
+          "max_marks": 10.0,
+          "obtained_marks": null,
+          "target_marks": 8.5,
+          "status": "Upcoming",
+          "is_completed": false,
+          "date": "2026-10-25"
+        },
+        {
+          "name": "CA 4",
+          "title": "Dynamic Programming & Hashing",
+          "max_marks": 10.0,
+          "obtained_marks": null,
+          "target_marks": 8.5,
+          "status": "Upcoming",
+          "is_completed": false,
+          "date": "2026-11-18"
+        }
+      ]
+    },
+    "cs304": {
+      "subject_id": "cs304",
+      "subject_name": "Database Management Systems",
+      "target_marks": 9.0,
+      "current_marks": 8.8,
+      "max_marks": 10.0,
+      "target_percentage": 90.0,
+      "records": [
+        {
+          "name": "CA 1",
+          "title": "ER Modeling & Relational Algebra",
+          "max_marks": 10.0,
+          "obtained_marks": 8.6,
+          "target_marks": 9.0,
+          "status": "Completed",
+          "is_completed": true,
+          "date": "2026-08-28"
+        },
+        {
+          "name": "CA 2",
+          "title": "SQL & Normalization (BCNF/3NF)",
+          "max_marks": 10.0,
+          "obtained_marks": 9.0,
+          "target_marks": 9.0,
+          "status": "Completed",
+          "is_completed": true,
+          "date": "2026-09-22"
+        },
+        {
+          "name": "CA 3",
+          "title": "Transactions & Concurrency Control",
+          "max_marks": 10.0,
+          "obtained_marks": null,
+          "target_marks": 9.0,
+          "status": "Upcoming",
+          "is_completed": false,
+          "date": "2026-10-26"
+        },
+        {
+          "name": "CA 4",
+          "title": "Indexing & Query Optimization",
+          "max_marks": 10.0,
+          "obtained_marks": null,
+          "target_marks": 9.0,
+          "status": "Upcoming",
+          "is_completed": false,
+          "date": "2026-11-20"
+        }
+      ]
+    },
+    "cs305": {
+      "subject_id": "cs305",
+      "subject_name": "Computer Networks",
+      "target_marks": 8.0,
+      "current_marks": 8.2,
+      "max_marks": 10.0,
+      "target_percentage": 80.0,
+      "records": [
+        {
+          "name": "CA 1",
+          "title": "Physical & Data Link Layers",
+          "max_marks": 10.0,
+          "obtained_marks": 8.0,
+          "target_marks": 8.0,
+          "status": "Completed",
+          "is_completed": true,
+          "date": "2026-08-30"
+        },
+        {
+          "name": "CA 2",
+          "title": "Network Layer & IPv4/IPv6 Subnetting",
+          "max_marks": 10.0,
+          "obtained_marks": 8.4,
+          "target_marks": 8.0,
+          "status": "Completed",
+          "is_completed": true,
+          "date": "2026-09-24"
+        },
+        {
+          "name": "CA 3",
+          "title": "Transport Layer (TCP/UDP Handshakes)",
+          "max_marks": 10.0,
+          "obtained_marks": null,
+          "target_marks": 8.0,
+          "status": "Upcoming",
+          "is_completed": false,
+          "date": "2026-10-28"
+        },
+        {
+          "name": "CA 4",
+          "title": "Application Layer & Socket APIs",
+          "max_marks": 10.0,
+          "obtained_marks": null,
+          "target_marks": 8.0,
+          "status": "Upcoming",
+          "is_completed": false,
+          "date": "2026-11-22"
+        }
+      ]
+    },
+    "es306": {
+      "subject_id": "es306",
+      "subject_name": "Environmental Studies",
+      "target_marks": 8.0,
+      "current_marks": 7.5,
+      "max_marks": 10.0,
+      "target_percentage": 80.0,
+      "records": [
+        {
+          "name": "CA 1",
+          "title": "Ecosystem Dynamics & Energy Flow",
+          "max_marks": 10.0,
+          "obtained_marks": 7.5,
+          "target_marks": 8.0,
+          "status": "Completed",
+          "is_completed": true,
+          "date": "2026-09-02"
+        },
+        {
+          "name": "CA 2",
+          "title": "Pollution Control & Waste Management",
+          "max_marks": 10.0,
+          "obtained_marks": null,
+          "target_marks": 8.0,
+          "status": "Upcoming",
+          "is_completed": false,
+          "date": "2026-10-15"
+        },
+        {
+          "name": "CA 3",
+          "title": "Environmental Impact Assessment",
+          "max_marks": 10.0,
+          "obtained_marks": null,
+          "target_marks": 8.0,
+          "status": "Upcoming",
+          "is_completed": false,
+          "date": "2026-11-25"
+        }
+      ]
+    }
+  }
+}

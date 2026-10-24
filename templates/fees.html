@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+
+{% block title %}Fees & Payments — UniVerse{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <span class="page-eyebrow">Financial Accounts</span>
+    <h2 class="page-title">Fees & Payments</h2>
+    <p class="page-subtitle">Tuition installments, laboratory dues, and digital transaction receipts.</p>
+  </div>
+  <button class="btn btn-primary btn-sm" onclick="openPayModal()">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <rect width="20" height="14" x="2" y="5" rx="2"/>
+      <line x1="2" y1="10" x2="22" y2="10"/>
+    </svg>
+    <span>Pay Balance (₹35,000)</span>
+  </button>
+</div>
+
+<!-- Fee Stats Row -->
+<div class="metric-cards-grid" style="margin-bottom: 24px;">
+  <div class="card metric-card">
+    <div class="metric-icon-box" style="background: rgba(91, 140, 255, 0.12); color: var(--primary-accent);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect width="20" height="14" x="2" y="5" rx="2"/>
+        <line x1="2" y1="10" x2="22" y2="10"/>
+      </svg>
+    </div>
+    <div class="metric-details">
+      <div class="metric-label">Total Semester Fee</div>
+      <div class="metric-value">{{ fees_data.fee_summary.currency_symbol }}{{ "{:,}".format(fees_data.fee_summary.total_fee) }}</div>
+      <div class="metric-subtext">{{ fees_data.fee_summary.semester }}</div>
+    </div>
+  </div>
+
+  <div class="card metric-card">
+    <div class="metric-icon-box" style="background: rgba(16, 185, 129, 0.12); color: var(--badge-dark-green);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="12 6 12 12 14 14"/>
+      </svg>
+    </div>
+    <div class="metric-details">
+      <div class="metric-label">Amount Paid</div>
+      <div class="metric-value" style="color: var(--badge-dark-green);">{{ fees_data.fee_summary.currency_symbol }}{{ "{:,}".format(fees_data.fee_summary.paid_amount) }}</div>
+      <div class="metric-subtext" style="color: var(--badge-dark-green); font-weight: 600;">Verified Receipts Available</div>
+    </div>
+  </div>
+
+  <div class="card metric-card">
+    <div class="metric-icon-box" style="background: rgba(239, 68, 68, 0.12); color: #FF6B6B;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+    </div>
+    <div class="metric-details">
+      <div class="metric-label">Outstanding Due</div>
+      <div class="metric-value" style="color: #FF6B6B;">{{ fees_data.fee_summary.currency_symbol }}{{ "{:,}".format(fees_data.fee_summary.outstanding_amount) }}</div>
+      <div class="metric-subtext">Due by {{ fees_data.fee_summary.due_date }}</div>
+    </div>
+  </div>
+</div>
+
+<!-- Breakdown & History Grid -->
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+  <!-- Fee Breakdown -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title-group">
+        <div class="card-title-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="8" y1="6" x2="21" y2="6"/>
+            <line x1="8" y1="12" x2="21" y2="12"/>
+            <line x1="8" y1="18" x2="21" y2="18"/>
+            <line x1="3" y1="6" x2="3.01" y2="6"/>
+            <line x1="3" y1="12" x2="3.01" y2="12"/>
+            <line x1="3" y1="18" x2="3.01" y2="18"/>
+          </svg>
+        </div>
+        <h3 class="card-title">Fee Breakdown</h3>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      {% for item in fees_data.breakdown %}
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; border-radius: var(--radius-sm); background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+        <div>
+          <span style="font-size: 13.5px; font-weight: 600; color: var(--text-primary);">{{ item.component }}</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <strong style="color: var(--text-primary); font-size: 13.5px;">₹{{ "{:,}".format(item.amount) }}</strong>
+          {% if item.status == 'Paid' %}
+          <span class="badge badge-dark-green">Paid</span>
+          {% else %}
+          <span class="badge badge-yellow">Due</span>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Transactions History -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title-group">
+        <div class="card-title-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 14 14"/>
+          </svg>
+        </div>
+        <h3 class="card-title">Transaction History</h3>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      {% for txn in fees_data.transactions %}
+      <div style="padding: 12px 14px; border-radius: var(--radius-md); background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+          <div>
+            <h4 style="font-size: 14px; font-weight: 700; color: var(--text-primary);">{{ txn.description }}</h4>
+            <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 2px;">Ref: {{ txn.id }} • {{ txn.date }}</div>
+            <div style="font-size: 11.5px; color: var(--text-secondary); margin-top: 2px;">Mode: {{ txn.mode }}</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 15px; font-weight: 800; color: var(--badge-dark-green);">+ ₹{{ "{:,}".format(txn.amount) }}</div>
+            <span class="badge badge-dark-green" style="margin-top: 4px;">{{ txn.status }}</span>
+          </div>
+        </div>
+        <div style="margin-top: 10px; border-top: 1px solid var(--border-subtle); padding-top: 8px; text-align: right;">
+          <button class="btn btn-sm btn-secondary" onclick="alert('Downloading verified receipt for transaction: {{ txn.id }}...')">
+            Download e-Receipt
+          </button>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<!-- Simulated Pay Modal -->
+<div class="modal-backdrop" id="payModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 class="modal-title">UniVerse Secure Payment Gateway (Demo)</h3>
+      <button class="btn btn-icon btn-secondary" onclick="document.getElementById('payModal').classList.remove('active')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="padding: 14px; background-color: var(--bg-surface); border-radius: var(--radius-md); border: 1px solid var(--border-color); margin-bottom: 16px;">
+        <div style="font-size: 13px; color: var(--text-secondary);">Payable Balance:</div>
+        <div style="font-size: 24px; font-weight: 800; color: var(--text-primary);">₹35,000</div>
+        <div style="font-size: 11px; color: var(--text-muted);">Candidate: Mahir Limbani (USTU23045)</div>
+      </div>
+      <div style="font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px;">Select Payment Method (Simulation):</div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <label style="padding: 10px 14px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); display: flex; align-items: center; gap: 10px; cursor: pointer;">
+          <input type="radio" name="payMethod" checked>
+          <span>UPI / QR Code (Google Pay, PhonePe, Paytm)</span>
+        </label>
+        <label style="padding: 10px 14px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); display: flex; align-items: center; gap: 10px; cursor: pointer;">
+          <input type="radio" name="payMethod">
+          <span>Net Banking (HDFC, SBI, ICICI, Axis)</span>
+        </label>
+      </div>
+      <div style="font-size: 11px; color: var(--text-muted); margin-top: 14px;">
+        <em>Notice: This is a safe frontend prototype. No real money or banking credentials are requested or stored.</em>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary btn-sm" onclick="document.getElementById('payModal').classList.remove('active')">Cancel</button>
+      <button class="btn btn-primary btn-sm" onclick="simulatePaymentSuccess()">Confirm Demo Payment</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function openPayModal() {
+  document.getElementById('payModal').classList.add('active');
+}
+
+function simulatePaymentSuccess() {
+  document.getElementById('payModal').classList.remove('active');
+  alert("Payment of ₹35,000 successfully simulated! Transaction reference #TXN-DEMO-9918 generated.");
+}
+</script>
+{% endblock %}

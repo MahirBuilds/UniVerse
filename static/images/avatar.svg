@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <linearGradient id="skinGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FCD34D"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+    <linearGradient id="shirtGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5B8CFF"/>
+      <stop offset="100%" stop-color="#3A72EC"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="48" fill="url(#bgGrad)" stroke="#5B8CFF" stroke-width="2"/>
+  <!-- Shirt -->
+  <path d="M 22 88 Q 50 68 78 88 L 78 98 L 22 98 Z" fill="url(#shirtGrad)"/>
+  <!-- Neck -->
+  <rect x="43" y="58" width="14" height="14" fill="#F59E0B" rx="4"/>
+  <!-- Head -->
+  <ellipse cx="50" cy="46" rx="19" ry="22" fill="url(#skinGrad)"/>
+  <!-- Modern Hair style -->
+  <path d="M 31 42 C 30 28 42 22 50 22 C 60 22 70 27 69 40 C 67 36 60 30 50 30 C 40 30 33 36 31 42 Z" fill="#1E1B4B"/>
+  <!-- Eyes -->
+  <circle cx="43" cy="45" r="2.5" fill="#1E293B"/>
+  <circle cx="57" cy="45" r="2.5" fill="#1E293B"/>
+  <!-- Glasses -->
+  <rect x="36" y="40" width="13" height="10" rx="3" fill="none" stroke="#63D6C5" stroke-width="1.8"/>
+  <rect x="51" y="40" width="13" height="10" rx="3" fill="none" stroke="#63D6C5" stroke-width="1.8"/>
+  <line x1="49" y1="44" x2="51" y2="44" stroke="#63D6C5" stroke-width="1.8"/>
+  <!-- Smile -->
+  <path d="M 45 56 Q 50 60 55 56" fill="none" stroke="#78350F" stroke-width="1.8" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="botGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5B8CFF"/>
+      <stop offset="100%" stop-color="#63D6C5"/>
+    </linearGradient>
+    <linearGradient id="faceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B1020"/>
+      <stop offset="100%" stop-color="#141C2F"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <!-- Floating Glow -->
+  <circle cx="60" cy="60" r="54" fill="url(#botGrad)" opacity="0.15" filter="url(#glow)"/>
+  <!-- Outer Ring -->
+  <circle cx="60" cy="60" r="48" fill="none" stroke="url(#botGrad)" stroke-width="2.5" opacity="0.6"/>
+  <!-- Head Outline -->
+  <rect x="25" y="30" width="70" height="56" rx="28" fill="#F8FAFC" stroke="url(#botGrad)" stroke-width="2"/>
+  <!-- Visor / Face Screen -->
+  <rect x="33" y="38" width="54" height="38" rx="19" fill="url(#faceGrad)"/>
+  <!-- Glowing Cyan Eyes -->
+  <ellipse cx="48" cy="54" rx="6" ry="8" fill="#63D6C5" filter="url(#glow)"/>
+  <ellipse cx="72" cy="54" rx="6" ry="8" fill="#63D6C5" filter="url(#glow)"/>
+  <!-- Eye highlights -->
+  <circle cx="49" cy="51" r="2" fill="#FFFFFF"/>
+  <circle cx="73" cy="51" r="2" fill="#FFFFFF"/>
+  <!-- Cute smile -->
+  <path d="M 54 64 Q 60 68 66 64" fill="none" stroke="#63D6C5" stroke-width="2" stroke-linecap="round"/>
+  <!-- Little Antenna -->
+  <circle cx="60" cy="22" r="4.5" fill="#5B8CFF" filter="url(#glow)"/>
+  <line x1="60" y1="26" x2="60" y2="30" stroke="#5B8CFF" stroke-width="2.5"/>
+  <!-- Ear Nodes -->
+  <rect x="20" y="48" width="6" height="16" rx="3" fill="#5B8CFF"/>
+  <rect x="94" y="48" width="6" height="16" rx="3" fill="#5B8CFF"/>
+</svg>

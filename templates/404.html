@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}404 Not Found — UniVerse{% endblock %}
+
+{% block content %}
+<div style="min-height: calc(100vh - var(--topbar-height) - 120px); display: flex; align-items: center; justify-content: center; padding: 40px 20px;">
+  <div style="max-width: 540px; text-align: center; position: relative;">
+    
+    <!-- Ambient Minimalist Floating Shapes (Dabbit Inspiration) -->
+    <div style="display: flex; justify-content: center; gap: 14px; margin-bottom: 24px; opacity: 0.85;">
+      <span class="glyph-dot glyph-coral" style="width: 10px; height: 10px;"></span>
+      <span class="glyph-square glyph-teal" style="width: 10px; height: 10px;"></span>
+      <span class="glyph-triangle glyph-blue" style="border-bottom-width: 10px; border-left-width: 6px; border-right-width: 6px;"></span>
+      <span class="glyph-dash glyph-amber" style="width: 14px; height: 4px;"></span>
+      <span class="glyph-dot glyph-purple" style="width: 10px; height: 10px;"></span>
+    </div>
+
+    <!-- 404 Large Display -->
+    <div style="font-size: 88px; font-weight: 900; line-height: 1; letter-spacing: -3px; color: var(--text-primary); margin-bottom: 16px; background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+      404
+    </div>
+
+    <h2 style="font-size: 24px; font-weight: 800; color: var(--text-primary); letter-spacing: -0.3px; margin-bottom: 10px;">
+      Not found
+    </h2>
+
+    <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 28px;">
+      There's nothing at this coordinate.<br>
+      The link may have moved or the page route had a typo.
+    </p>
+
+    <!-- Pill Action Buttons (Dabbit Inspiration) -->
+    <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 32px;">
+      <a href="{{ url_for('home') }}" class="btn btn-primary" style="padding: 10px 24px;">
+        <span>Return to Dashboard</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </a>
+      <a href="{{ url_for('ai_assistant') }}" class="btn btn-secondary" style="padding: 10px 24px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+        <span>Ask AI Co-Pilot</span>
+      </a>
+    </div>
+
+    <div style="font-size: 11.5px; color: var(--text-muted); line-height: 1.5; border-top: 1px solid var(--border-subtle); padding-top: 18px;">
+      If you arrived here from inside UniVerse, notify <a href="{{ url_for('settings') }}" style="color: var(--primary-accent); text-decoration: underline;">campus system support</a>.
+    </div>
+  </div>
+</div>
+{% endblock %}

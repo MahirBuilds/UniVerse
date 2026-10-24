@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+
+{% block title %}Settings — UniVerse{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <span class="page-eyebrow">System Preferences</span>
+    <h2 class="page-title">Preferences & Settings</h2>
+    <p class="page-subtitle">Customize application theme, notification channels, and student profile preferences.</p>
+  </div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+  <!-- Theme & Appearance -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title-group">
+        <div class="card-title-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/>
+          </svg>
+        </div>
+        <h3 class="card-title">Theme & Appearance</h3>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 14px;">
+      <div style="font-size: 13px; color: var(--text-secondary);">Select your preferred color scheme across the entire UniVerse ecosystem:</div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <!-- Midnight Dark Option -->
+        <div class="theme-select-card" onclick="setTheme('dark')" style="padding: 16px; border: 1.5px solid var(--border-color); border-radius: var(--radius-md); background: #0C1222; color: #F1F5F9; cursor: pointer; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);">
+          <div style="font-weight: 700; font-size: 13.5px; display: flex; align-items: center; gap: 8px;">
+            <span>🌙 Midnight & Blue</span>
+          </div>
+          <div style="font-size: 11px; color: #94A3B8; margin-top: 6px; line-height: 1.45;">Deep navy dark mode tailored for late-night focus.</div>
+        </div>
+
+        <!-- Clean Light Option -->
+        <div class="theme-select-card" onclick="setTheme('light')" style="padding: 16px; border: 1.5px solid var(--border-color); border-radius: var(--radius-md); background: #FFFFFF; color: #0F172A; cursor: pointer; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);">
+          <div style="font-weight: 700; font-size: 13.5px; display: flex; align-items: center; gap: 8px;">
+            <span>☀️ Electric Light</span>
+          </div>
+          <div style="font-size: 11px; color: #64748B; margin-top: 6px; line-height: 1.45;">Crisp, bright daylight interface with subtle sapphire tones.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Preferences -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title-group">
+        <div class="card-title-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
+            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+          </svg>
+        </div>
+        <h3 class="card-title">Notification Channels</h3>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 12px; font-size: 13.5px;">
+      <label style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+        <span>Attendance Threshold Alerts (&lt; 75%)</span>
+        <input type="checkbox" checked style="width: 18px; height: 18px; accent-color: var(--primary-accent);">
+      </label>
+      <label style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+        <span>Assessment Schedule & Hall Ticket Releases</span>
+        <input type="checkbox" checked style="width: 18px; height: 18px; accent-color: var(--primary-accent);">
+      </label>
+      <label style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+        <span>Upcoming Lecture Reminders (15 mins prior)</span>
+        <input type="checkbox" checked style="width: 18px; height: 18px; accent-color: var(--primary-accent);">
+      </label>
+      <label style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+        <span>Brain Gym Daily Challenges & Tournament Alerts</span>
+        <input type="checkbox" checked style="width: 18px; height: 18px; accent-color: var(--primary-accent);">
+      </label>
+    </div>
+  </div>
+
+  <!-- Profile Preferences Form -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title-group">
+        <div class="card-title-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </div>
+        <h3 class="card-title">Student Profile</h3>
+      </div>
+    </div>
+
+    <form onsubmit="event.preventDefault(); alert('Profile preferences saved in local session!');" style="display: flex; flex-direction: column; gap: 12px;">
+      <div>
+        <label style="font-size: 12px; color: var(--text-secondary); display: block; margin-bottom: 4px;">Full Name</label>
+        <input type="text" value="{{ student.name }}" style="width: 100%;">
+      </div>
+      <div>
+        <label style="font-size: 12px; color: var(--text-secondary); display: block; margin-bottom: 4px;">University Email</label>
+        <input type="email" value="{{ student.email }}" style="width: 100%;">
+      </div>
+      <div>
+        <label style="font-size: 12px; color: var(--text-secondary); display: block; margin-bottom: 4px;">Phone Number</label>
+        <input type="tel" value="{{ student.phone }}" style="width: 100%;">
+      </div>
+      <div style="text-align: right; margin-top: 6px;">
+        <button type="submit" class="btn btn-primary btn-sm">Save Changes</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Reset Demonstration Data -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title-group">
+        <div class="card-title-icon" style="color: #FF5A5A;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="1 4 1 10 7 10"/>
+            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+          </svg>
+        </div>
+        <h3 class="card-title">Reset Demonstration State</h3>
+      </div>
+    </div>
+
+    <p style="font-size: 12.5px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 16px;">
+      Clears saved browser preferences, Brain Gym game points streak, and restores default demonstration state.
+    </p>
+
+    <button class="btn btn-secondary btn-sm" onclick="confirmResetDemoData()" style="color: #FF5A5A; border-color: rgba(239, 68, 68, 0.4);">
+      Reset Demonstration State
+    </button>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function setTheme(mode) {
+  document.documentElement.setAttribute('data-theme', mode);
+  localStorage.setItem('universe_theme', mode);
+  window.dispatchEvent(new CustomEvent('universeThemeChanged', { detail: { theme: mode } }));
+}
+
+function confirmResetDemoData() {
+  if (confirm("Are you sure you want to reset demonstration state and reload initial fixtures?")) {
+    localStorage.clear();
+    alert("Demonstration state reset successfully.");
+    window.location.reload();
+  }
+}
+</script>
+{% endblock %}

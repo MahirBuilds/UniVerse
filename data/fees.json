@@ -1,0 +1,64 @@
+{
+  "fee_summary": {
+    "total_fee": 120000,
+    "paid_amount": 85000,
+    "outstanding_amount": 35000,
+    "due_date": "2026-11-15",
+    "currency": "INR",
+    "currency_symbol": "₹",
+    "semester": "Semester 3 (Autumn 2026)",
+    "payment_status": "Partially Paid"
+  },
+  "breakdown": [
+    {
+      "component": "Tuition Fee",
+      "amount": 75000,
+      "status": "Paid"
+    },
+    {
+      "component": "Laboratory & Computing Facility Fee",
+      "amount": 18000,
+      "status": "Paid"
+    },
+    {
+      "component": "Examination & Evaluation Fee",
+      "amount": 7000,
+      "status": "Due"
+    },
+    {
+      "component": "Library & Digital Resources",
+      "amount": 5000,
+      "status": "Due"
+    },
+    {
+      "component": "Student Activities & Sports Fee",
+      "amount": 5000,
+      "status": "Due"
+    },
+    {
+      "component": "Hostel & Maintenance Fee",
+      "amount": 10000,
+      "status": "Due"
+    }
+  ],
+  "transactions": [
+    {
+      "id": "TXN-20260714-8821",
+      "date": "2026-07-14",
+      "amount": 50000,
+      "mode": "Net Banking (HDFC Bank)",
+      "status": "Successful",
+      "description": "Semester 3 Installment 1",
+      "receipt_url": "#"
+    },
+    {
+      "id": "TXN-20260820-4109",
+      "date": "2026-08-20",
+      "amount": 35000,
+      "mode": "UPI (Google Pay)",
+      "status": "Successful",
+      "description": "Semester 3 Installment 2",
+      "receipt_url": "#"
+    }
+  ]
+}

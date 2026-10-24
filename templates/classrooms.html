@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block title %}My Classrooms — UniVerse{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <span class="page-eyebrow">Academic Curriculum</span>
+    <h2 class="page-title">My Classrooms</h2>
+    <p class="page-subtitle">Enrolled subjects, lecture syllabus notes, and faculty office hours for Semester 3.</p>
+  </div>
+  <div style="display: flex; gap: 10px;">
+    <button class="btn btn-secondary btn-sm" onclick="alert('Downloading compiled syllabus bundle for Semester 3...')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      <span>Download Syllabus</span>
+    </button>
+  </div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px;">
+  {% for s in subjects %}
+  <div class="card card-interactive" id="{{ s.id }}" style="display: flex; flex-direction: column; justify-content: space-between;">
+    <div>
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+        <span class="badge" style="background-color: rgba(91, 140, 255, 0.12); color: var(--primary-accent); border: 1px solid rgba(91, 140, 255, 0.25);">
+          {{ s.code }} • {{ s.credits }} Credits
+        </span>
+        <span class="badge {{ s.status_class }}">{{ s.attendance_pct }}% Attendance</span>
+      </div>
+
+      <h3 style="font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; letter-spacing: -0.2px;">{{ s.name }}</h3>
+      <p style="font-size: 12.5px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 14px;">{{ s.description }}</p>
+
+      <div style="padding: 10px 12px; background-color: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-sm); margin-bottom: 14px;">
+        <div style="font-size: 12.5px; font-weight: 600; color: var(--text-primary);">{{ s.faculty }}</div>
+        <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 2px;">{{ s.faculty_room }} • {{ s.faculty_email }}</div>
+      </div>
+
+      <!-- Syllabus Progress -->
+      <div style="margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between; font-size: 11.5px; color: var(--text-secondary); margin-bottom: 5px;">
+          <span>Syllabus Covered</span>
+          <span style="font-weight: 700; color: var(--text-primary);">{{ s.progress }}%</span>
+        </div>
+        <div style="height: 6px; background-color: var(--bg-surface); border-radius: 4px; overflow: hidden; border: 1px solid var(--border-subtle);">
+          <div style="width: {{ s.progress }}%; height: 100%; background: var(--primary-gradient); border-radius: 4px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-subtle); padding-top: 14px;">
+      <div style="font-size: 11.5px; color: var(--text-muted);">
+        📁 <strong style="color: var(--text-secondary);">{{ s.resources_count }}</strong> Resources • 📝 <strong style="color: var(--text-secondary);">{{ s.upcoming_assessments }}</strong> Due
+      </div>
+      <button class="btn btn-secondary btn-sm" onclick="openClassroomModal('{{ s.name }}', '{{ s.code }}', '{{ s.faculty }}')">
+        <span>View Lectures</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- Classroom Details Modal -->
+<div class="modal-backdrop" id="classroomModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div>
+        <h3 class="modal-title" id="classModalTitle">Subject Lectures</h3>
+        <span style="font-size: 12px; color: var(--text-secondary);" id="classModalFaculty"></span>
+      </div>
+      <button class="btn btn-icon btn-secondary" onclick="document.getElementById('classroomModal').classList.remove('active')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">Recent Lecture Modules</div>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div style="padding: 12px 14px; border-radius: var(--radius-sm); background-color: var(--bg-surface); border: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="font-size: 13px; font-weight: 600; color: var(--text-primary);">Lecture 18: Core Algorithms & Analysis</div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Recorded Oct 1 • PDF Notes + Slide Deck (4.2 MB)</div>
+          </div>
+          <button class="btn btn-sm btn-secondary" onclick="alert('Opening simulated PDF viewer...')">Read Notes</button>
+        </div>
+        <div style="padding: 12px 14px; border-radius: var(--radius-sm); background-color: var(--bg-surface); border: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="font-size: 13px; font-weight: 600; color: var(--text-primary);">Lecture 17: Theoretical Foundations & Models</div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Recorded Sep 28 • Problem Set 4 Attached</div>
+          </div>
+          <button class="btn btn-sm btn-secondary" onclick="alert('Opening simulated PDF viewer...')">Read Notes</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary btn-sm" onclick="document.getElementById('classroomModal').classList.remove('active')">Close</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function openClassroomModal(name, code, faculty) {
+  document.getElementById('classModalTitle').textContent = `${name} (${code})`;
+  document.getElementById('classModalFaculty').textContent = faculty;
+  document.getElementById('classroomModal').classList.add('active');
+}
+</script>
+{% endblock %}

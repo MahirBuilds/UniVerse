@@ -1,0 +1,84 @@
+{
+  "calendar_days": [
+    {
+      "day_num": "01",
+      "month": "Oct",
+      "weekday": "Wed",
+      "status": "Today",
+      "type": "today",
+      "title": "Regular Academic Day",
+      "badge_class": "cal-today",
+      "is_active": true
+    },
+    {
+      "day_num": "02",
+      "month": "Oct",
+      "weekday": "Thu",
+      "status": "Working",
+      "type": "working",
+      "title": "Gandhi Jayanti Observance & Classes",
+      "badge_class": "cal-working",
+      "is_active": false
+    },
+    {
+      "day_num": "03",
+      "month": "Oct",
+      "weekday": "Fri",
+      "status": "Holiday",
+      "type": "holiday",
+      "title": "Navratri Break - Day 1",
+      "badge_class": "cal-holiday",
+      "is_active": false
+    },
+    {
+      "day_num": "04",
+      "month": "Oct",
+      "weekday": "Sat",
+      "status": "Holiday",
+      "type": "holiday",
+      "title": "Navratri Break - Day 2",
+      "badge_class": "cal-holiday",
+      "is_active": false
+    },
+    {
+      "day_num": "05",
+      "month": "Oct",
+      "weekday": "Sun",
+      "status": "Holiday",
+      "type": "holiday",
+      "title": "Weekend Holiday",
+      "badge_class": "cal-holiday",
+      "is_active": false
+    },
+    {
+      "day_num": "06",
+      "month": "Oct",
+      "weekday": "Mon",
+      "status": "Holiday",
+      "type": "holiday",
+      "title": "Navratri Break - Day 4",
+      "badge_class": "cal-holiday",
+      "is_active": false
+    },
+    {
+      "day_num": "07",
+      "month": "Oct",
+      "weekday": "Tue",
+      "status": "Holiday",
+      "type": "holiday",
+      "title": "Dussehra Festival Holiday",
+      "badge_class": "cal-holiday",
+      "is_active": false
+    },
+    {
+      "day_num": "08",
+      "month": "Oct",
+      "weekday": "Wed",
+      "status": "Working",
+      "type": "working",
+      "title": "Classes Resume",
+      "badge_class": "cal-working",
+      "is_active": false
+    }
+  ]
+}

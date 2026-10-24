@@ -1,0 +1,400 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard — UniVerse{% endblock %}
+
+{% block content %}
+<!-- ----------------- TOP ROW: WELCOME & HOLIDAYS ----------------- -->
+<section class="dashboard-top-row">
+  <!-- Welcome Banner (Reference-Inspired Editorial Hero) -->
+  <div class="welcome-banner">
+    <div class="welcome-content">
+      <div class="welcome-eyebrow-row">
+        <span class="status-beacon-live" aria-hidden="true"></span>
+        <span class="welcome-eyebrow-text">ACADEMIC ECOSYSTEM • SEMESTER 3</span>
+      </div>
+      <h2 class="welcome-greeting">Good Morning, Mahir! 👋</h2>
+      <p class="welcome-quote">"Discipline today, success tomorrow."</p>
+      <div class="welcome-next-lecture">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        <span>Next: <strong>Business Mathematics</strong> • 08:30 AM (Lecture Hall 302)</span>
+      </div>
+    </div>
+    
+    <!-- Boutique Dabbit-Inspired Loupe Viewport & Confetti Field (Reference Exact Style) -->
+    <div class="welcome-viewport-wrapper" aria-hidden="true">
+      <!-- Decorative Pastel Confetti Pebbles (Dabbit Signature) -->
+      <div class="dabbit-pebbles-cluster">
+        <span class="pebble p-mint-pill"></span>
+        <span class="pebble p-peach-lozenge"></span>
+        <span class="pebble p-lavender-disk"></span>
+        <span class="pebble p-sky-circle"></span>
+        <span class="pebble p-amber-diamond"></span>
+        <span class="pebble p-coral-capsule"></span>
+        <span class="pebble p-mint-dot"></span>
+        <span class="pebble p-lavender-pill"></span>
+      </div>
+
+      <div class="dabbit-loupe-viewport">
+        <!-- Floating Pastel Ambient Aura Swatches (Reference Slide 1) -->
+        <div class="loupe-pastel-blur aura-mint"></div>
+        <div class="loupe-pastel-blur aura-lavender"></div>
+        <div class="loupe-pastel-blur aura-peach"></div>
+        <div class="loupe-pastel-blur aura-sky"></div>
+        
+        <!-- Center Loupe Reticle Ring & Focus Crosshair -->
+        <div class="loupe-reticle-ring">
+          <div class="loupe-reticle-dot"></div>
+          <div class="loupe-crosshair-h"></div>
+          <div class="loupe-crosshair-v"></div>
+        </div>
+
+        <!-- Monospace Status Dock (Reference Slide 1/2) -->
+        <div class="loupe-status-dock">
+          <span class="loupe-swatch-dot"></span>
+          <span class="loupe-swatch-code">#38BDF8 • S3</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Upcoming Holidays Bento Card -->
+  <div class="holidays-card">
+    <div class="holidays-header">
+      <div class="holidays-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect width="18" height="18" x="3" y="4" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/>
+          <line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        <span>Upcoming Holidays</span>
+      </div>
+      <a href="{{ url_for('timetable') }}" class="card-link">View Calendar &gt;</a>
+    </div>
+
+    <div class="calendar-strip">
+      {% for day in calendar_days %}
+      <div class="calendar-day-pill {{ day.badge_class }}">
+        <span class="cal-num">{{ day.day_num }}</span>
+        <span class="cal-month">{{ day.month }}</span>
+        <span class="cal-status">{{ day.status }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ----------------- ARCHITECTURAL BENTO METRIC MATRIX (5 Summary Stats) ----------------- -->
+<section class="summary-cards-row">
+  <!-- 1. Current Semester -->
+  <a href="{{ url_for('academics') }}" class="stat-card" title="View Academics & Semester Details">
+    <div class="stat-header">
+      <span class="stat-glyph glyph-dot glyph-coral" aria-hidden="true"></span>
+      <span class="stat-label">Current Semester</span>
+    </div>
+    <div class="stat-value-group">
+      <span class="stat-value">{{ student.semester }}</span>
+    </div>
+    <!-- Tactile Palette Strip (Dabbit Signature) -->
+    <div class="stat-palette-bar" aria-hidden="true">
+      <span class="palette-chip chip-fill-blue"></span>
+      <span class="palette-chip chip-fill-blue"></span>
+      <span class="palette-chip chip-fill-blue"></span>
+      <span class="palette-chip chip-muted"></span>
+      <span class="palette-chip chip-muted"></span>
+    </div>
+    <div class="stat-subtext">{{ student.branch_short }}</div>
+  </a>
+
+  <!-- 2. Total Subjects -->
+  <a href="{{ url_for('classrooms') }}" class="stat-card" title="View Enrolled Subjects">
+    <div class="stat-header">
+      <span class="stat-glyph glyph-square glyph-blue" aria-hidden="true"></span>
+      <span class="stat-label">Total Subjects</span>
+    </div>
+    <div class="stat-value-group">
+      <span class="stat-value">{{ student.enrolled_subjects_count }}</span>
+    </div>
+    <!-- Tactile Palette Strip (Dabbit Signature) -->
+    <div class="stat-palette-bar" aria-hidden="true">
+      <span class="palette-chip chip-pastel-mint"></span>
+      <span class="palette-chip chip-pastel-sky"></span>
+      <span class="palette-chip chip-pastel-lavender"></span>
+      <span class="palette-chip chip-pastel-peach"></span>
+      <span class="palette-chip chip-pastel-buttercup"></span>
+    </div>
+    <div class="stat-subtext">This Semester</div>
+  </a>
+
+  <!-- 3. Overall Attendance -->
+  <a href="{{ url_for('attendance') }}" class="stat-card" title="View Full Attendance Details">
+    <div class="stat-header">
+      <span class="stat-glyph glyph-triangle glyph-teal" aria-hidden="true"></span>
+      <span class="stat-label">Overall Attendance</span>
+    </div>
+    <div class="stat-value-group">
+      <span class="stat-value">{{ attendance_summary.overall_pct }}%</span>
+      <span class="stat-trend-pill positive">↑ {{ student.attendance_trend }}</span>
+    </div>
+    <!-- Tactile Palette Strip (Dabbit Signature) -->
+    <div class="stat-palette-bar" aria-hidden="true">
+      <span class="palette-chip chip-fill-emerald"></span>
+      <span class="palette-chip chip-fill-emerald"></span>
+      <span class="palette-chip chip-fill-emerald"></span>
+      <span class="palette-chip chip-fill-emerald"></span>
+      <span class="palette-chip chip-muted"></span>
+    </div>
+    <div class="stat-subtext">{{ attendance_summary.total_attended }} / {{ attendance_summary.total_conducted }} classes</div>
+  </a>
+
+  <!-- 4. Average Marks -->
+  <a href="{{ url_for('progress') }}" class="stat-card" title="View Academic Progress Report">
+    <div class="stat-header">
+      <span class="stat-glyph glyph-dash glyph-purple" aria-hidden="true"></span>
+      <span class="stat-label">Average Marks</span>
+    </div>
+    <div class="stat-value-group">
+      <span class="stat-value">{{ student.average_marks }}</span>
+      <span class="stat-scale-muted">/ 10</span>
+    </div>
+    <!-- Tactile Palette Strip (Dabbit Signature) -->
+    <div class="stat-palette-bar" aria-hidden="true">
+      <span class="palette-chip chip-fill-purple"></span>
+      <span class="palette-chip chip-fill-purple"></span>
+      <span class="palette-chip chip-fill-purple"></span>
+      <span class="palette-chip chip-fill-purple"></span>
+      <span class="palette-chip chip-muted"></span>
+    </div>
+    <div class="stat-subtext">CGPA: {{ student.cgpa }}</div>
+  </a>
+
+  <!-- 5. Brain Gym Points -->
+  <a href="{{ url_for('leaderboard') }}" class="stat-card" title="View Brain Gym Leaderboard">
+    <div class="stat-header">
+      <span class="stat-glyph glyph-star glyph-amber" aria-hidden="true"></span>
+      <span class="stat-label">Brain Gym Points</span>
+    </div>
+    <div class="stat-value-group">
+      <span class="stat-value">{{ "{:,}".format(student.brain_gym_points) }}</span>
+      <span class="stat-rank-pill">#{{ student.brain_gym_rank }}</span>
+    </div>
+    <!-- Tactile Palette Strip (Dabbit Signature) -->
+    <div class="stat-palette-bar" aria-hidden="true">
+      <span class="palette-chip chip-fill-amber"></span>
+      <span class="palette-chip chip-fill-amber"></span>
+      <span class="palette-chip chip-fill-amber"></span>
+      <span class="palette-chip chip-fill-amber"></span>
+      <span class="palette-chip chip-fill-amber"></span>
+    </div>
+    <div class="stat-subtext">Global Ranking</div>
+  </a>
+</section>
+
+<!-- ----------------- MAIN DASHBOARD GRID ----------------- -->
+<section class="dashboard-grid">
+
+  <!-- LEFT COLUMN: TODAY'S TIMETABLE -->
+  <div class="grid-col-left">
+    <div class="card timetable-bento-card">
+      <div class="card-header">
+        <div class="card-title-group">
+          <div class="card-title-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <h3 class="card-title">Today's Timetable</h3>
+        </div>
+        <a href="{{ url_for('timetable') }}" class="card-link">View Full Schedule &gt;</a>
+      </div>
+
+      <div class="timetable-hairline-list">
+        {% for item in today_schedule %}
+        <div class="timetable-row {% if item.type == 'break' %}break-row{% endif %}">
+          <div class="timetable-time-cell">
+            <span class="time-pill">{{ item.time_display }}</span>
+          </div>
+          <div class="timetable-meta-cell">
+            <h4 class="timetable-subject-name">{{ item.subject_name }}</h4>
+            <div class="timetable-sub-info">
+              {% if item.faculty %}
+              <span>{{ item.faculty }}</span>
+              <span class="meta-sep">•</span>
+              <span>{{ item.room }}</span>
+              {% else %}
+              <span>{{ item.room }}</span>
+              {% endif %}
+            </div>
+          </div>
+          <div class="timetable-badge-cell">
+            {% if item.attendance_pct is not none %}
+            <span class="badge {{ item.badge_class }}">{{ item.attendance_pct|int }}%</span>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- MIDDLE COLUMN: ACADEMIC PROGRESS -->
+  <div class="grid-col-mid">
+    <div class="card progress-bento-card">
+      <div class="card-header">
+        <div class="card-title-group">
+          <div class="card-title-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="20" x2="18" y2="10"/>
+              <line x1="12" y1="20" x2="12" y2="4"/>
+              <line x1="6" y1="20" x2="6" y2="14"/>
+            </svg>
+          </div>
+          <h3 class="card-title">Academic Progress</h3>
+        </div>
+
+        <!-- Subject Selector Dropdown -->
+        <div class="progress-select-wrap">
+          <select id="academicSubjectSelect" class="progress-select" aria-label="Select Subject for Academic Progress">
+            {% for s in subjects %}
+            <option value="{{ s.id }}" {% if s.id == 'bm301' %}selected{% endif %}>{{ s.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <!-- Interactive Chart.js Canvas -->
+      <div class="chart-container">
+        <canvas id="academicProgressChart"></canvas>
+      </div>
+
+      <!-- 3 Key Metric Projections (Hairline Segmented Strip) -->
+      <div class="academic-metrics-strip">
+        <div class="metric-box">
+          <h5>Target</h5>
+          <div class="metric-value" id="academicTargetVal">8.5 / 10</div>
+          <div class="metric-sub">Configured Target</div>
+        </div>
+        <div class="metric-box">
+          <h5>Current</h5>
+          <div class="metric-value" id="academicCurrentVal">8.1 / 10</div>
+          <div class="metric-sub">Average Achieved</div>
+        </div>
+        <div class="metric-box">
+          <h5>Required</h5>
+          <div class="metric-value" id="academicRequiredVal" style="color: var(--badge-coral, #FB7185);">9.0 / 10</div>
+          <div class="metric-sub" id="academicRequiredSub">to reach target</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT COLUMN: NOTICES, QUICK AI, LEADERBOARD -->
+  <div class="grid-col-right">
+    <!-- Notices & Events Widget -->
+    <div class="card notices-bento-card">
+      <div class="card-header">
+        <div class="card-title-group">
+          <div class="card-title-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
+              <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+            </svg>
+          </div>
+          <h3 class="card-title">Notices & Events</h3>
+        </div>
+        <a href="{{ url_for('notices') }}" class="card-link">View All &gt;</a>
+      </div>
+
+      <div class="notices-hairline-list">
+        {% for n in notices %}
+        <div class="notice-hairline-row" onclick="window.location.href='{{ url_for('notices') }}#{{ n.id }}'" role="button" tabindex="0">
+          <div class="notice-row-header">
+            <span class="badge {{ n.tag_class }}">{{ n.tag }}</span>
+            <span class="notice-time-text">{{ n.time_ago }}</span>
+          </div>
+          <h4 class="notice-row-title">{{ n.title }}</h4>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Quick Revision AI Card -->
+    <div class="quick-ai-card">
+      <div class="quick-ai-bot-avatar">
+        <img src="{{ url_for('static', filename='images/robot_avatar.svg') }}" alt="AI Bot">
+      </div>
+      <h3 class="quick-ai-title">Quick Revision?</h3>
+      <p class="quick-ai-sub">I'm here to help you ace your lectures!</p>
+
+      <div class="quick-ai-actions">
+        <button class="quick-ai-btn" data-prompt="Revise Last Lecture in Business Mathematics">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="1 4 1 10 7 10"/>
+            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+          </svg>
+          <span>Revise Last Lecture</span>
+        </button>
+
+        <button class="quick-ai-btn" data-prompt="Explain a key concept from Operating Systems: Virtual Memory">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="16" x2="12" y2="12"/>
+            <line x1="12" y1="8" x2="12.01" y2="8"/>
+          </svg>
+          <span>Explain a Concept</span>
+        </button>
+
+        <button class="quick-ai-btn" data-prompt="Give me a quick 3-question quiz on Data Structures">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+          <span>Quick Quiz</span>
+        </button>
+
+        <button class="quick-ai-btn" data-prompt="Summarize my semester targets and pending assignments">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <span>Ask Anything</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Top Players Leaderboard Preview -->
+    <div class="card leaderboard-bento-card">
+      <div class="card-header">
+        <div class="card-title-group">
+          <div class="card-title-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+              <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+              <path d="M4 22h16"/>
+              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+            </svg>
+          </div>
+          <h3 class="card-title">Top Players - Brain Gym</h3>
+        </div>
+        <a href="{{ url_for('leaderboard') }}" class="card-link">This Week &gt;</a>
+      </div>
+
+      <div class="leaderboard-hairline-list">
+        {% for leader in top_leaderboard %}
+        <div class="leader-hairline-row {% if leader.is_current_user %}current-user{% endif %}">
+          <span class="leader-rank-badge rank-{{ leader.rank }}">{{ leader.rank }}</span>
+          <img src="{{ leader.avatar }}" alt="{{ leader.name }}" class="leader-avatar-circle" onerror="this.onerror=null; this.src='/static/images/avatar.svg';">
+          <div class="leader-name-col">{{ leader.name }}</div>
+          <div class="leader-points-pill">{{ "{:,}".format(leader.points) }}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+</section>
+{% endblock %}

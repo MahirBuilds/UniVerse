@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}Course Enrollment — UniVerse{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <span class="page-eyebrow">Department Electives</span>
+    <h2 class="page-title">Course Enrollment</h2>
+    <p class="page-subtitle">Explore upcoming department electives, verify prerequisites, and manage your semester credits.</p>
+  </div>
+  <div class="card" style="padding: 10px 18px; display: flex; align-items: center; gap: 12px; border-radius: var(--radius-md);">
+    <span style="font-size: 12.5px; color: var(--text-secondary);">Enrolled Credits:</span>
+    <strong style="font-size: 18px; font-weight: 800; color: var(--primary-accent);" id="totalEnrolledCredits">21</strong>
+    <span style="font-size: 11px; color: var(--text-muted);">(Max 26 allowable)</span>
+  </div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px;">
+  {% for course in catalog %}
+  <div class="card" id="card-{{ course.id }}" style="display: flex; flex-direction: column; justify-content: space-between;">
+    <div>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <span class="badge" style="background-color: rgba(91, 140, 255, 0.15); color: var(--primary-accent); border: 1px solid rgba(91, 140, 255, 0.3);">
+          {{ course.code }} • {{ course.type }}
+        </span>
+        <span class="badge badge-light-green">{{ course.status }}</span>
+      </div>
+
+      <h3 style="font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px;">{{ course.name }}</h3>
+      
+      <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px;">
+        <div>Faculty: <strong>{{ course.faculty }}</strong></div>
+        <div>Lecture Slot: <strong>{{ course.slots }}</strong></div>
+        <div>Prerequisite: <em>{{ course.prerequisites }}</em></div>
+      </div>
+
+      <div style="padding: 8px 12px; background-color: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-sm); margin-bottom: 14px; font-size: 12px; display: flex; justify-content: space-between;">
+        <span>Capacity: <strong>{{ course.enrolled_count }} / {{ course.capacity }}</strong></span>
+        <span>Credits: <strong style="color: var(--primary-accent);">{{ course.credits }}</strong></span>
+      </div>
+    </div>
+
+    <div style="border-top: 1px solid var(--border-subtle); padding-top: 12px; display: flex; justify-content: space-between; align-items: center;">
+      <span style="font-size: 11.5px; color: var(--text-muted);">Semester 4 Pre-reg</span>
+      <button class="btn btn-primary btn-sm enroll-btn" data-id="{{ course.id }}" data-credits="{{ course.credits }}" onclick="toggleEnrollCourse(this)">
+        Enroll Course
+      </button>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let enrolledCredits = 21;
+
+function toggleEnrollCourse(btn) {
+  const credits = parseInt(btn.getAttribute('data-credits'));
+  const isEnrolled = btn.classList.contains('enrolled');
+
+  if (isEnrolled) {
+    // Drop course
+    enrolledCredits -= credits;
+    btn.classList.remove('enrolled', 'btn-secondary');
+    btn.classList.add('btn-primary');
+    btn.textContent = 'Enroll Course';
+    alert("Successfully dropped course.");
+  } else {
+    // Enroll course
+    if (enrolledCredits + credits > 26) {
+      alert("Credit limit exceeded! Maximum allowed credits per semester is 26.");
+      return;
+    }
+    enrolledCredits += credits;
+    btn.classList.remove('btn-primary');
+    btn.classList.add('enrolled', 'btn-secondary');
+    btn.textContent = 'Enrolled ✓ (Drop)';
+    alert(`Successfully enrolled in course! Added +${credits} credits.`);
+  }
+
+  const credDisplay = document.getElementById('totalEnrolledCredits');
+  if (credDisplay) credDisplay.textContent = enrolledCredits;
+}
+</script>
+{% endblock %}

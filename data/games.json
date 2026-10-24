@@ -1,0 +1,82 @@
+{
+  "games": [
+    {
+      "id": "pinball",
+      "title": "Pinball Rebounds",
+      "category": "Spatial & Physics",
+      "description": "Grid-based laser reflection puzzle. Predict where the laser beam exits after deflecting off angled mirrors.",
+      "difficulty": "Medium",
+      "duration": "2-3 mins",
+      "best_score": "520 pts",
+      "icon": "crosshair",
+      "accent_color": "#5B8CFF",
+      "featured": true,
+      "route": "/brain-gym/pinball"
+    },
+    {
+      "id": "math_sprint",
+      "title": "Math Sprint",
+      "category": "Speed Arithmetic",
+      "description": "Solve rapid-fire mental arithmetic equations against an accelerating countdown timer. Build high combo streaks!",
+      "difficulty": "Fast",
+      "duration": "60 secs",
+      "best_score": "340 pts",
+      "icon": "zap",
+      "accent_color": "#F59E0B",
+      "featured": false,
+      "route": "/brain-gym/math-sprint"
+    },
+    {
+      "id": "memory_snap",
+      "title": "Memory Snap",
+      "category": "Visual Memory",
+      "description": "Memorize illuminated color sequences and reproduce them in exact order as sequences grow longer.",
+      "difficulty": "Medium",
+      "duration": "1-2 mins",
+      "best_score": "280 pts",
+      "icon": "brain",
+      "accent_color": "#10B981",
+      "featured": false,
+      "route": "/brain-gym/memory-snap"
+    },
+    {
+      "id": "logic_duel",
+      "title": "Logic Duel",
+      "category": "Analytical Reasoning",
+      "description": "Timed deductions, syllogisms, and sequence paradoxes against the simulated clock opponent.",
+      "difficulty": "Hard",
+      "duration": "3 mins",
+      "best_score": "210 pts",
+      "icon": "swords",
+      "accent_color": "#8B5CF6",
+      "featured": false,
+      "route": "/brain-gym/logic-duel"
+    },
+    {
+      "id": "color_grid",
+      "title": "Color Grid",
+      "category": "Visual Perception",
+      "description": "Find the subtle outlier shade or reconstruct the gradient harmony before the timer expires.",
+      "difficulty": "Easy",
+      "duration": "90 secs",
+      "best_score": "190 pts",
+      "icon": "palette",
+      "accent_color": "#EC4899",
+      "featured": false,
+      "route": "/brain-gym/color-grid"
+    },
+    {
+      "id": "pattern_recall",
+      "title": "Pattern Recall",
+      "category": "Spatial Memory",
+      "description": "Study complex matrix patterns for 3 seconds, then recreate the exact matrix from memory.",
+      "difficulty": "Hard",
+      "duration": "2 mins",
+      "best_score": "240 pts",
+      "icon": "grid",
+      "accent_color": "#06B6D4",
+      "featured": false,
+      "route": "/brain-gym/pattern-recall"
+    }
+  ]
+}

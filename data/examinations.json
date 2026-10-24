@@ -1,0 +1,84 @@
+{
+  "upcoming_exams": [
+    {
+      "id": "exam-1",
+      "code": "BM301",
+      "subject": "Business Mathematics",
+      "type": "Continuous Assessment 2",
+      "date": "2026-10-18",
+      "time": "10:00 AM - 12:00 PM",
+      "room": "LH-302",
+      "status": "Hall Ticket Released",
+      "hall_ticket_ready": true,
+      "max_marks": 50,
+      "syllabus": "Modules 3 & 4: Multivariable Calculus, Optimization & Matrix Inversion"
+    },
+    {
+      "id": "exam-2",
+      "code": "CS302",
+      "subject": "Operating Systems",
+      "type": "Continuous Assessment 2",
+      "date": "2026-10-20",
+      "time": "10:00 AM - 12:00 PM",
+      "room": "LH-405",
+      "status": "Hall Ticket Released",
+      "hall_ticket_ready": true,
+      "max_marks": 50,
+      "syllabus": "Process Synchronization, Semaphores, Monitors & Memory Paging"
+    },
+    {
+      "id": "exam-3",
+      "code": "CS303",
+      "subject": "Data Structures",
+      "type": "Continuous Assessment 2",
+      "date": "2026-10-22",
+      "time": "10:00 AM - 12:00 PM",
+      "room": "Lab-2",
+      "status": "Hall Ticket Pending",
+      "hall_ticket_ready": false,
+      "max_marks": 50,
+      "syllabus": "Binary Trees, AVL Trees, Heaps, Graph BFS/DFS & Dijkstra"
+    },
+    {
+      "id": "exam-4",
+      "code": "CS304",
+      "subject": "Database Management Systems",
+      "type": "Continuous Assessment 2",
+      "date": "2026-10-24",
+      "time": "10:00 AM - 12:00 PM",
+      "room": "LH-302",
+      "status": "Hall Ticket Pending",
+      "hall_ticket_ready": false,
+      "max_marks": 50,
+      "syllabus": "Relational Calculus, SQL Joins, BCNF Normalization & Transaction ACID"
+    }
+  ],
+  "past_results": [
+    {
+      "id": "res-1",
+      "semester": "Semester 2 (Spring 2026)",
+      "gpa": 8.60,
+      "result_status": "Passed with Distinction",
+      "records": [
+        {"code": "CS201", "name": "Object Oriented Programming (Java)", "grade": "A+", "marks": 92, "max_marks": 100, "credits": 4},
+        {"code": "CS202", "name": "Digital Logic & Computer Architecture", "grade": "A", "marks": 85, "max_marks": 100, "credits": 4},
+        {"code": "MA203", "name": "Discrete Mathematical Structures", "grade": "A", "marks": 86, "max_marks": 100, "credits": 4},
+        {"code": "EC204", "name": "Basic Electronic Devices", "grade": "B+", "marks": 78, "max_marks": 100, "credits": 3},
+        {"code": "HS205", "name": "Professional Communication", "grade": "O", "marks": 95, "max_marks": 100, "credits": 2}
+      ]
+    },
+    {
+      "id": "res-2",
+      "semester": "Semester 1 (Autumn 2025)",
+      "gpa": 8.24,
+      "result_status": "Passed with First Class",
+      "records": [
+        {"code": "CS101", "name": "Programming for Problem Solving (C)", "grade": "A", "marks": 88, "max_marks": 100, "credits": 4},
+        {"code": "MA102", "name": "Engineering Mathematics I", "grade": "B+", "marks": 79, "max_marks": 100, "credits": 4},
+        {"code": "PH103", "name": "Engineering Physics", "grade": "A", "marks": 84, "max_marks": 100, "credits": 3},
+        {"code": "EE104", "name": "Basic Electrical Engineering", "grade": "B", "marks": 72, "max_marks": 100, "credits": 3},
+        {"code": "ME105", "name": "Engineering Graphics & Design", "grade": "A+", "marks": 91, "max_marks": 100, "credits": 3}
+      ]
+    }
+  ]
+}
